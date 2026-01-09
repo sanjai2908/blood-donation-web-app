@@ -2,7 +2,6 @@
 
 ## 📌 Project Overview
 
-This project is developed as part of my **M.Sc Computer Science final year project**.  
 The main aim of this application is to connect **blood donors** and **receivers (patients or hospitals)** through a simple web-based system.
 
 This project helped me understand how frontend, backend, and database work together in a real-time application.
@@ -129,14 +128,6 @@ node server.js
 
 ---
 
-## 🎓 Academic Information
-
-- Course: M.Sc Computer Science
-- Project Type: Final Year Project
-- Purpose: Educational use
-
----
-
 ## 🔮 Future Enhancements
 
 - Password encryption
@@ -150,7 +141,6 @@ node server.js
 ## 👨‍💻 Developer Details
 
 Name: Sanjai S  
-Course: M.Sc Computer Science  
 
 ---
 
