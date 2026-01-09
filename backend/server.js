@@ -79,17 +79,17 @@ app.get("/api", (req, res) => {
     endpoints: {
       auth: {
         register: "POST /api/register",
-        login: "POST /api/login"
+        login: "POST /api/login",
       },
       donors: {
         getAllDonors: "GET /api/donors",
-        getDonorById: "GET /api/donor/:id"
+        getDonorById: "GET /api/donor/:id",
       },
       requests: {
         createRequest: "POST /api/request-blood",
-        getAllRequests: "GET /api/requests"
-      }
-    }
+        getAllRequests: "GET /api/requests",
+      },
+    },
   });
 });
 
