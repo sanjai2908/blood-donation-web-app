@@ -4,7 +4,8 @@
 // This file handles donor dashboard functionality
 
 // API Base URL
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://blood-donation-web-app-8k1y.onrender.com/api";
+console.log("Using backend API:", API_URL);
 
 // =============================================
 // CHECK IF USER IS LOGGED IN

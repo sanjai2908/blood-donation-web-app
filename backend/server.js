@@ -70,6 +70,29 @@ app.get("/", (req, res) => {
   });
 });
 
+// API info route - shows available endpoints
+app.get("/api", (req, res) => {
+  res.json({
+    success: true,
+    message: "Blood Donation API",
+    version: "1.0.0",
+    endpoints: {
+      auth: {
+        register: "POST /api/register",
+        login: "POST /api/login"
+      },
+      donors: {
+        getAllDonors: "GET /api/donors",
+        getDonorById: "GET /api/donor/:id"
+      },
+      requests: {
+        createRequest: "POST /api/request-blood",
+        getAllRequests: "GET /api/requests"
+      }
+    }
+  });
+});
+
 // Authentication routes (register, login)
 app.use("/api", authRoutes);
 

@@ -4,7 +4,8 @@
 // This file handles user registration functionality
 
 // API Base URL
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://blood-donation-web-app-8k1y.onrender.com/api";
+console.log("Using backend API:", API_URL);
 
 // Get form elements
 const registerForm = document.getElementById("registerForm");
