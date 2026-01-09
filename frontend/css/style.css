@@ -1,0 +1,577 @@
+/* =============================================
+   CUSTOM CSS FOR BLOOD DONATION SYSTEM
+   ============================================= */
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== UPDATED HERO SECTION STYLES ========== */
+
+/* New Hero Section with Background Image */
+.hero-section-new {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Background Image Container */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Background Image */
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Dark Overlay (transparent layer on top of image) */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+/* Hero Content - Centered on top of background */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hero Title Styling */
+.hero-title {
+  font-size: 3.5rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  animation: fadeInDown 0.8s ease-in-out;
+}
+
+/* Hero Subtitle Styling */
+.hero-subtitle {
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 0.8s ease-in-out 0.2s both;
+}
+
+/* Hero Buttons Styling */
+.hero-btn {
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 12px 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 0.8s ease-in-out 0.4s both;
+}
+
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation: Fade In Down */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation: Fade In Up */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design for Mobile Phones */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-btn {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    width: 100%;
+  }
+
+  .d-flex.flex-wrap {
+    flex-direction: column;
+  }
+}
+
+/* Responsive Design for Tablets */
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+}
+
+.min-vh-75 {
+  min-height: 75vh;
+}
+
+/* Feature Cards */
+.feature-card {
+  border: none;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon i {
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon i {
+  transform: scale(1.1);
+}
+
+/* Login & Register Forms */
+.login-section,
+.register-section {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+}
+
+.card {
+  border-radius: 15px;
+  border: none;
+}
+
+.card-header {
+  border-radius: 15px 15px 0 0 !important;
+}
+
+/* Form Controls */
+.form-control,
+.form-select {
+  border-radius: 8px;
+  padding: 12px;
+  border: 2px solid #e9ecef;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Buttons */
+.btn {
+  border-radius: 8px;
+  padding: 12px 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  border: none;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+/* Dashboard Cards */
+.dashboard-section {
+  min-height: calc(100vh - 200px);
+}
+
+.card.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Donor Cards in Request Page */
+.donor-card {
+  border-left: 4px solid #dc3545;
+  transition: all 0.3s ease;
+}
+
+.donor-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+.table {
+  font-size: 14px;
+}
+
+.table thead {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+/* ========== DONOR CARD STYLES ========== */
+
+/* Donor Cards */
+.donor-card {
+  border-left: 4px solid #dc3545;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.donor-card:hover {
+  box-shadow: 0 4px 16px rgba(220, 53, 69, 0.2);
+  transform: translateY(-2px);
+}
+
+.donor-card .card-body {
+  padding: 1.2rem;
+}
+
+/* Donor info styling */
+.donor-card h5 {
+  color: #333;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.donor-card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.donor-card i {
+  margin-right: 0.5rem;
+}
+
+/* Donor action buttons */
+.donor-card .btn-success,
+.donor-card .btn-info {
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.donor-card .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.donor-card .btn-info:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+/* Empty state for no donors */
+#emptyState {
+  color: #6c757d;
+  padding: 2rem;
+  text-align: center;
+}
+
+#emptyState i {
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+#emptyState h5 {
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+/* Badges */
+.badge {
+  padding: 6px 12px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+/* Alert Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert.show {
+  animation: slideDown 0.3s ease;
+}
+
+/* Stats Cards */
+.opacity-50 {
+  opacity: 0.5;
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 50p
+  }
+
+  .display-4 {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .table {
+    font-size: 12px;
+  }
+}
+
+/* Loading Spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dc3545;
+  border-radius: 5px;
+}
+
+/* ========== FORGOT PASSWORD MODAL STYLES ========== */
+
+/* Modal Styling */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header */
+.modal-header {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  border-radius: 12px 12px 0 0 !important;
+  border: none;
+}
+
+.modal-header .btn-close-white {
+  filter: brightness(0) invert(1);
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 2rem;
+}
+
+/* Admin Contact Info Box */
+.modal-body .bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.modal-body .border-start {
+  border-width: 4px !important;
+}
+
+.modal-body .border-start h6 {
+  color: #333;
+  font-weight: 600;
+}
+
+.modal-body .border-start a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.modal-body .border-start a:hover {
+  text-decoration: underline;
+}
+
+/* Modal Footer */
+.modal-footer {
+  border-top: 1px solid #e9ecef;
+  padding: 1rem 2rem;
+  background-color: #f8f9fa;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Forgot Password Form Input */
+#forgotEmail {
+  border-radius: 8px;
+  padding: 12px;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+#forgotEmail:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Forgot Password Modal Buttons */
+.modal-footer .btn-danger {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+.modal-footer .btn-danger:hover {
+  background-color: #bd2130;
+  border-color: #bd2130;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+.modal-footer .btn-secondary {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+/* Alert in Modal */
+#forgotAlertMessage {
+  border-radius: 8px;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c82333;
+}
+
+/* Print Styles for Viva */
+@media print {
+  .navbar,
+  footer,
+  .btn {
+    display: none !important;
+  }
+
+  .card {
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ========== ACTION BUTTONS STYLES ========== */
+
+/* Admin action buttons in tables */
+.btn-sm {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.btn-sm.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-sm.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(13, 110, 253, 0.3);
+}
+
+.btn-sm.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-sm.btn-danger:hover {
+  background-color: #bb2d3b;
+  border-color: #b02622;
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-sm i {
+  margin-right: 3px;
+}
+
+/* Table action cell */
+td:has(.btn-sm) {
+  white-space: nowrap;
+}

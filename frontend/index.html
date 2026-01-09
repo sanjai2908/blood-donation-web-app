@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blood Donation System - Home</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <i class="fas fa-droplet text-white"></i> Blood Donation System
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          title="Toggle navigation"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.html">Register</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- UPDATED: Hero Section with Background Image and Overlay -->
+    <section class="hero-section-new">
+      <!-- Background image with dark overlay -->
+      <div class="hero-background">
+        <!-- Blood donation related background image -->
+        <img
+          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=600&fit=crop"
+          alt="Blood Donation Background"
+          class="hero-bg-image"
+        />
+        <!-- Dark transparent overlay for readability -->
+        <div class="hero-overlay"></div>
+      </div>
+
+      <!-- Centered content -->
+      <div class="hero-content">
+        <div class="container">
+          <div class="text-center text-white">
+            <!-- Main Title -->
+            <h1 class="hero-title mb-3 fw-bold">Blood Donation Saves Lives</h1>
+
+            <!-- Subtitle -->
+            <p class="hero-subtitle mb-5">Donate Blood, Save Humanity</p>
+
+            <!-- Action Buttons -->
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+              <!-- Donor Register Button -->
+              <a href="register.html" class="btn btn-light btn-lg hero-btn">
+                <i class="fas fa-user-plus me-2"></i>Donor Register
+              </a>
+
+              <!-- Request Blood Button -->
+              <a
+                href="request-blood.html"
+                class="btn btn-danger btn-lg hero-btn"
+              >
+                <i class="fas fa-tint me-2"></i>Request Blood
+              </a>
+
+              <!-- Login Button -->
+              <a
+                href="login.html"
+                class="btn btn-outline-light btn-lg hero-btn"
+              >
+                <i class="fas fa-sign-in-alt me-2"></i>Login
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row g-4">
+          <!-- Donor Feature -->
+          <div class="col-md-4">
+            <div class="card feature-card h-100 text-center p-4">
+              <div class="feature-icon mb-3">
+                <i class="fas fa-user-circle fa-4x text-danger"></i>
+              </div>
+              <h4>Register as Donor</h4>
+              <p class="text-muted">
+                Sign up with your details including blood group, age, city, and
+                availability.
+              </p>
+            </div>
+          </div>
+
+          <!-- Receiver Feature -->
+          <div class="col-md-4">
+            <div class="card feature-card h-100 text-center p-4">
+              <div class="feature-icon mb-3">
+                <i class="fas fa-hospital fa-4x text-danger"></i>
+              </div>
+              <h4>Request Blood</h4>
+              <p class="text-muted">
+                Receivers can search for available donors by blood group and
+                city.
+              </p>
+            </div>
+          </div>
+
+          <!-- Match Feature -->
+          <div class="col-md-4">
+            <div class="card feature-card h-100 text-center p-4">
+              <div class="feature-icon mb-3">
+                <i class="fas fa-handshake fa-4x text-danger"></i>
+              </div>
+              <h4>Connect & Save Lives</h4>
+              <p class="text-muted">
+                Get instant matches and contact information to connect with
+                donors.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section bg-danger text-white py-5">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-md-3">
+            <h2 class="display-4 fw-bold">10K+</h2>
+            <p>Registered Donors</p>
+          </div>
+          <div class="col-md-3">
+            <h2 class="display-4 fw-bold">5K+</h2>
+            <p>Lives Saved</p>
+          </div>
+          <div class="col-md-3">
+            <h2 class="display-4 fw-bold">50+</h2>
+            <p>Cities Covered</p>
+          </div>
+          <div class="col-md-3">
+            <h2 class="display-4 fw-bold">24/7</h2>
+            <p>Support Available</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+      <div class="container text-center">
+        <p class="mb-0">&copy; 2026 Blood Donation System</p>
+        <p class="text-muted small mt-2">
+          Developed with <i class="fas fa-heart text-danger"></i> for saving
+          lives
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

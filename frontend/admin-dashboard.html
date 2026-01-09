@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Blood Donation System</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <i class="fas fa-heartbeat"></i> Blood Donation System
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          title="Toggle navigation"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <span class="nav-link">
+                <i class="fas fa-user-shield"></i> Admin Panel
+              </span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Admin Dashboard Section -->
+    <section class="admin-section py-5">
+      <div class="container-fluid">
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+          <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white shadow">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="mb-0">Total Donors</h6>
+                    <h2 class="mb-0 mt-2" id="totalDonors">0</h2>
+                  </div>
+                  <i class="fas fa-users fa-3x opacity-50"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white shadow">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="mb-0">Total Requests</h6>
+                    <h2 class="mb-0 mt-2" id="totalRequests">0</h2>
+                  </div>
+                  <i class="fas fa-clipboard-list fa-3x opacity-50"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3">
+            <div class="card bg-warning text-white shadow">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="mb-0">Available Donors</h6>
+                    <h2 class="mb-0 mt-2" id="availableDonors">0</h2>
+                  </div>
+                  <i class="fas fa-check-circle fa-3x opacity-50"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white shadow">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="mb-0">Pending Requests</h6>
+                    <h2 class="mb-0 mt-2" id="pendingRequests">0</h2>
+                  </div>
+                  <i class="fas fa-hourglass-half fa-3x opacity-50"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- All Donors Table -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card shadow">
+              <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">
+                  <i class="fas fa-users"></i> All Registered Donors
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Blood Group</th>
+                        <th>Age</th>
+                        <th>City</th>
+                        <th>Phone</th>
+                        <th>Availability</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="donorsTableBody">
+                      <tr>
+                        <td colspan="8" class="text-center">
+                          <i class="fas fa-spinner fa-spin"></i> Loading...
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- All Blood Requests Table -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card shadow">
+              <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                  <i class="fas fa-clipboard-list"></i> All Blood Requests
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Receiver Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Blood Group Needed</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="requestsTableBody">
+                      <tr>
+                        <td colspan="8" class="text-center">
+                          <i class="fas fa-spinner fa-spin"></i> Loading...
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+      <div class="container text-center">
+        <p class="mb-0">&copy; 2026 Blood Donation System</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/admin-dashboard.js"></script>
+  </body>
+</html>

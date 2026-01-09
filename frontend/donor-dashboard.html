@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donor Dashboard - Blood Donation System</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <i class="fas fa-heartbeat"></i> Blood Donation System
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          title="Toggle navigation menu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <span class="nav-link">
+                <i class="fas fa-user"></i> <span id="userName">Donor</span>
+              </span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section py-5">
+      <div class="container">
+        <div class="row">
+          <!-- Welcome Card -->
+          <div class="col-12 mb-4">
+            <div class="card bg-danger text-white">
+              <div class="card-body">
+                <h2>
+                  <i class="fas fa-hand-holding-heart"></i> Welcome,
+                  <span id="welcomeName"></span>!
+                </h2>
+                <p class="mb-0">
+                  Thank you for being a lifesaver. Your donation can save lives.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- NEW: NOTIFICATIONS SECTION -->
+          <div class="col-12 mb-4">
+            <div class="card shadow hidden-by-default" id="notificationCard">
+              <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                  <i class="fas fa-bell"></i> 🔔 New Blood Requests
+                </h5>
+              </div>
+              <div class="card-body">
+                <!-- Notifications Container -->
+                <div id="notificationsContainer">
+                  <!-- Notifications will be loaded here dynamically -->
+                </div>
+
+                <!-- Empty State Message -->
+                <div id="noNotifications" class="text-center text-muted">
+                  <i class="fas fa-check-circle fa-3x mb-3"></i>
+                  <p><strong>No new blood requests at this moment.</strong></p>
+                  <p class="small">
+                    Check back later or enable notifications to stay updated.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile Information Card -->
+          <div class="col-lg-6 mb-4">
+            <div class="card shadow h-100">
+              <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="fas fa-id-card"></i> My Profile</h5>
+              </div>
+              <div class="card-body">
+                <div id="profileInfo">
+                  <div class="mb-3">
+                    <strong
+                      ><i class="fas fa-user text-danger"></i> Name:</strong
+                    >
+                    <p class="ms-4" id="profileName">Loading...</p>
+                  </div>
+                  <div class="mb-3">
+                    <strong
+                      ><i class="fas fa-envelope text-danger"></i>
+                      Email:</strong
+                    >
+                    <p class="ms-4" id="profileEmail">Loading...</p>
+                  </div>
+                  <div class="mb-3">
+                    <strong
+                      ><i class="fas fa-phone text-danger"></i> Phone:</strong
+                    >
+                    <p class="ms-4" id="profilePhone">Loading...</p>
+                  </div>
+                  <div class="mb-3">
+                    <strong
+                      ><i class="fas fa-map-marker-alt text-danger"></i>
+                      City:</strong
+                    >
+                    <p class="ms-4" id="profileCity">Loading...</p>
+                  </div>
+                  <div class="mb-3">
+                    <strong
+                      ><i class="fas fa-tint text-danger"></i> Blood
+                      Group:</strong
+                    >
+                    <p class="ms-4" id="profileBloodGroup">Loading...</p>
+                  </div>
+                  <div class="mb-3">
+                    <strong
+                      ><i class="fas fa-calendar text-danger"></i> Age:</strong
+                    >
+                    <p class="ms-4" id="profileAge">Loading...</p>
+                  </div>
+                  <div class="mb-3">
+                    <strong
+                      ><i class="fas fa-check-circle text-danger"></i>
+                      Availability:</strong
+                    >
+                    <p class="ms-4">
+                      <span id="profileAvailability" class="badge bg-success"
+                        >Available</span
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Card -->
+          <div class="col-lg-6 mb-4">
+            <div class="card shadow h-100">
+              <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="fas fa-tasks"></i> Quick Actions</h5>
+              </div>
+              <div class="card-body">
+                <!-- Toggle Availability -->
+                <div class="mb-4">
+                  <h6 class="fw-bold">Update Availability</h6>
+                  <p class="text-muted small">
+                    Let receivers know if you're available to donate
+                  </p>
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggleAvailability"
+                      onchange="updateAvailability()"
+                    />
+                    <label class="form-check-label" for="toggleAvailability">
+                      I am available to donate blood
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Info Cards -->
+                <div class="row g-3">
+                  <div class="col-6">
+                    <div class="card bg-light text-center p-3">
+                      <i class="fas fa-heartbeat fa-2x text-danger mb-2"></i>
+                      <h5 class="mb-0">Blood Donor</h5>
+                      <p class="text-muted small mb-0">Role</p>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="card bg-light text-center p-3">
+                      <i class="fas fa-shield-alt fa-2x text-success mb-2"></i>
+                      <h5 class="mb-0">Active</h5>
+                      <p class="text-muted small mb-0">Status</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Information Card -->
+          <div class="col-12">
+            <div class="card shadow">
+              <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                  <i class="fas fa-info-circle"></i> Blood Donation Guidelines
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6 class="text-success fw-bold">
+                      <i class="fas fa-check"></i> Who Can Donate:
+                    </h6>
+                    <ul>
+                      <li>Age between 18-65 years</li>
+                      <li>Weight at least 50 kg</li>
+                      <li>Good health condition</li>
+                      <li>No recent illness or surgery</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <h6 class="text-danger fw-bold">
+                      <i class="fas fa-times"></i> Who Cannot Donate:
+                    </h6>
+                    <ul>
+                      <li>Had COVID-19 in last 28 days</li>
+                      <li>Pregnant or breastfeeding</li>
+                      <li>Recent tattoo (within 6 months)</li>
+                      <li>On certain medications</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+      <div class="container text-center">
+        <p class="mb-0">&copy; 2026 Blood Donation System</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/donor-dashboard.js"></script>
+  </body>
+</html>
