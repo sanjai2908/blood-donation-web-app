@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+  <defs>
+    <linearGradient id="bgHero" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f9ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0f2fe;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="skinTone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdbcb4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f8a89c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bloodGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f87171;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="coatGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f3f4f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="url(#bgHero)" />
+
+  <!-- Hospital environment -->
+  <rect x="50" y="150" width="850" height="650" rx="32" fill="#ffffff" opacity="0.95" stroke="#e0f2fe" stroke-width="2" />
+
+  <!-- Wall sections (subtle hospital aesthetic) -->
+  <rect x="50" y="150" width="850" height="200" fill="#f0fdf4" opacity="0.4" />
+  <rect x="50" y="350" width="250" height="450" fill="#f5f3ff" opacity="0.3" />
+
+  <!-- Window (hospital room light) -->
+  <rect x="800" y="200" width="80" height="80" rx="8" fill="#bfdbfe" opacity="0.6" />
+  <line x1="840" y1="200" x2="840" y2="280" stroke="#60a5fa" stroke-width="1" opacity="0.4" />
+  <line x1="800" y1="240" x2="880" y2="240" stroke="#60a5fa" stroke-width="1" opacity="0.4" />
+
+  <!-- IV Stand (hospital equipment) -->
+  <rect x="850" y="380" width="16" height="280" fill="#64748b" rx="4" />
+  <circle cx="858" cy="370" r="32" fill="#475569" />
+  <circle cx="858" cy="370" r="24" fill="#64748b" />
+  <circle cx="858" cy="370" r="16" fill="#cbd5e1" />
+
+  <!-- Monitoring Equipment with Display -->
+  <rect x="720" y="240" width="110" height="80" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="2" />
+  <text x="735" y="265" font-family="Arial" font-size="10" fill="#10b981" font-weight="bold">V I T A L S</text>
+  <line x1="735" y1="275" x2="820" y2="275" stroke="#10b981" stroke-width="1.5" />
+  <text x="735" y="290" font-family="monospace" font-size="9" fill="#10b981">BP: 118/76</text>
+  <text x="735" y="305" font-family="monospace" font-size="9" fill="#10b981">HR: 70 bpm</text>
+
+  <!-- Blood Collection Bag (main focus) -->
+  <g id="bloodBag">
+    <!-- Bag container -->
+    <path d="M 480 350 L 540 345 L 550 580 L 470 585 Z" fill="url(#bloodGradient)" stroke="#991b1b" stroke-width="2.5" />
+    <!-- Bag shine/highlight -->
+    <ellipse cx="495" cy="420" rx="18" ry="50" fill="#ffffff" opacity="0.35" />
+    <!-- Measurement gradations -->
+    <line x1="475" y1="400" x2="545" y2="397" stroke="#991b1b" stroke-width="1" opacity="0.5" />
+    <line x1="473" y1="440" x2="548" y2="437" stroke="#991b1b" stroke-width="1" opacity="0.5" />
+    <line x1="472" y1="480" x2="551" y2="477" stroke="#991b1b" stroke-width="1" opacity="0.5" />
+    <line x1="471" y1="520" x2="552" y2="517" stroke="#991b1b" stroke-width="1" opacity="0.5" />
+    <!-- Collection port label -->
+    <text x="485" y="370" font-family="Arial" font-size="11" fill="#fff" font-weight="bold">450mL</text>
+  </g>
+
+  <!-- Donor (sitting, donating blood) -->
+  <g id="donor">
+    <!-- Donation chair -->
+    <rect x="200" y="480" width="140" height="160" rx="12" fill="#f3f4f6" stroke="#d1d5db" stroke-width="2" />
+    <!-- Chair armrests -->
+    <rect x="200" y="500" width="10" height="100" fill="#9ca3af" rx="3" />
+    <rect x="330" y="500" width="10" height="100" fill="#9ca3af" rx="3" />
+    <!-- Chair legs -->
+    <rect x="215" y="635" width="24" height="75" fill="#9ca3af" rx="4" />
+    <rect x="301" y="635" width="24" height="75" fill="#9ca3af" rx="4" />
+
+    <!-- Donor body (seated) -->
+    <circle cx="270" cy="310" r="42" fill="url(#skinTone)" stroke="#f8a89c" stroke-width="2" />
+    <!-- Head (dark hair) -->
+    <circle cx="270" cy="275" r="48" fill="#451a03" />
+    <!-- Hair texture -->
+    <path d="M 235 290 Q 230 310 245 330" fill="none" stroke="#351a03" stroke-width="2" />
+    <!-- Face details -->
+    <circle cx="260" cy="305" r="4" fill="#1f1f1f" />
+    <circle cx="280" cy="305" r="4" fill="#1f1f1f" />
+    <path d="M 268 325 Q 270 333 272 325" stroke="#d97706" stroke-width="2" fill="none" />
+
+    <!-- Torso (seated position) -->
+    <ellipse cx="270" cy="380" rx="38" ry="55" fill="#ec4444" />
+    <rect x="252" y="360" width="36" height="80" fill="#fca5a5" rx="6" />
+
+    <!-- Right arm extended for donation -->
+    <ellipse cx="350" cy="410" rx="16" ry="65" fill="url(#skinTone)" transform="rotate(50 350 410)" />
+    <!-- Right hand/fist -->
+    <circle cx="400" cy="475" r="20" fill="url(#skinTone)" stroke="#f8a89c" stroke-width="2" />
+
+    <!-- Needle insertion site -->
+    <g id="needleSite">
+      <circle cx="415" cy="485" r="10" fill="#fecaca" stroke="#fca5a5" stroke-width="1.5" />
+      <line x1="410" y1="480" x2="420" y2="490" stroke="#dc2626" stroke-width="1.5" opacity="0.7" />
+    </g>
+
+    <!-- Left arm resting -->
+    <ellipse cx="175" cy="420" rx="15" ry="50" fill="url(#skinTone)" transform="rotate(-35 175 420)" />
+    <!-- Left hand -->
+    <circle cx="150" cy="470" r="18" fill="url(#skinTone)" stroke="#f8a89c" stroke-width="2" />
+  </g>
+
+  <!-- Needle and tubing from arm to bag -->
+  <g id="needleAndTube">
+    <!-- Needle (red at tip) -->
+    <line x1="415" y1="485" x2="450" y2="470" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="450" cy="470" r="2.5" fill="#dc2626" />
+    <!-- Collection tube -->
+    <path d="M 450 470 Q 465 430 480 360" stroke="#64748b" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Healthcare Professional (nurse/phlebotomist) -->
+  <g id="medicalStaff">
+    <!-- Head -->
+    <circle cx="580" cy="290" r="38" fill="url(#skinTone)" stroke="#f8a89c" stroke-width="2" />
+    <!-- Hair -->
+    <path d="M 545 270 Q 580 250 615 270 L 610 295 Q 580 305 550 295 Z" fill="#6b5b95" />
+    <!-- Surgical cap -->
+    <ellipse cx="580" cy="260" rx="48" ry="18" fill="#0ea5e9" stroke="#0284c7" stroke-width="1.5" />
+    <path d="M 540 265 L 620 265" stroke="#0284c7" stroke-width="1" opacity="0.6" />
+
+    <!-- Face mask -->
+    <rect x="550" y="310" width="60" height="25" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <line x1="540" y1="323" x2="550" y2="323" stroke="#cbd5e1" stroke-width="1.5" />
+    <line x1="610" y1="323" x2="620" y2="323" stroke="#cbd5e1" stroke-width="1.5" />
+    <!-- Eyes -->
+    <circle cx="565" cy="300" r="2.5" fill="#1f1f1f" />
+    <circle cx="595" cy="300" r="2.5" fill="#1f1f1f" />
+
+    <!-- Medical coat -->
+    <path d="M 550 340 L 610 340 L 625 520 L 535 520 Z" fill="url(#coatGradient)" stroke="#cbd5e1" stroke-width="2" />
+    <!-- Coat buttons -->
+    <circle cx="580" y="380" r="3" fill="#64748b" />
+    <circle cx="580" y="420" r="3" fill="#64748b" />
+    <circle cx="580" y="460" r="3" fill="#64748b" />
+
+    <!-- Right arm holding clipboard -->
+    <ellipse cx="645" cy="420" rx="14" ry="58" fill="url(#skinTone)" transform="rotate(35 645 420)" />
+    <!-- Hand holding pen -->
+    <circle cx="680" cy="370" r="16" fill="url(#skinTone)" stroke="#f8a89c" stroke-width="2" />
+    <!-- Pen -->
+    <line x1="682" y1="385" x2="695" y2="400" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Clipboard with form -->
+    <rect x="650" y="350" width="55" height="75" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+    <line x1="660" y1="365" x2="695" y2="365" stroke="#d97706" stroke-width="1" />
+    <line x1="660" y1="378" x2="695" y2="378" stroke="#d97706" stroke-width="1" />
+    <line x1="660" y1="391" x2="685" y2="391" stroke="#d97706" stroke-width="1" />
+    <line x1="660" y1="404" x2="690" y2="404" stroke="#d97706" stroke-width="1" />
+
+    <!-- Left arm resting -->
+    <ellipse cx="535" cy="430" rx="14" ry="50" fill="url(#skinTone)" transform="rotate(-45 535 430)" />
+  </g>
+
+  <!-- Positive impact badge -->
+  <g id="impactBadge">
+    <circle cx="780" cy="470" r="65" fill="#fef3c7" stroke="#fbbf24" stroke-width="3" />
+    <circle cx="780" cy="470" r="55" fill="none" stroke="#f59e0b" stroke-width="1" opacity="0.4" />
+    <!-- Heart drop symbol -->
+    <path d="M 780 430 C 780 425 785 420 790 420 C 795 420 800 425 800 430 C 800 445 780 460 780 460 C 780 460 760 445 760 430 C 760 425 765 420 770 420 C 775 420 780 425 780 430" fill="#dc2626" />
+  </g>
+
+  <!-- Donation process info bars -->
+  <g id="processInfo">
+    <!-- Background bar -->
+    <rect x="50" y="760" width="850" height="90" rx="16" fill="#fef3c7" opacity="0.35" />
+
+    <!-- Key metrics -->
+    <text x="120" y="800" font-family="Arial" font-size="20" fill="#dc2626" font-weight="bold">450 mL</text>
+    <text x="120" y="822" font-family="Arial" font-size="12" fill="#64748b">Blood per donation</text>
+
+    <text x="380" y="800" font-family="Arial" font-size="20" fill="#dc2626" font-weight="bold">15 mins</text>
+    <text x="380" y="822" font-family="Arial" font-size="12" fill="#64748b">Average process time</text>
+
+    <text x="650" y="800" font-family="Arial" font-size="20" fill="#dc2626" font-weight="bold">3 Lives</text>
+    <text x="650" y="822" font-family="Arial" font-size="12" fill="#64748b">Lives saved per donation</text>
+  </g>
+
+  <!-- Decorative accents -->
+  <circle cx="150" cy="200" r="75" fill="#fecaca" opacity="0.12" />
+  <circle cx="950" cy="650" r="95" fill="#fca5a5" opacity="0.1" />
+  <circle cx="100" cy="520" r="55" fill="#dc2626" opacity="0.07" />
+</svg>

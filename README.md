@@ -1,149 +1,247 @@
-# 🩸 Blood Donation Web Application
+# Blood Donation Web Application
 
-## 📌 Project Overview
+A production-oriented full-stack blood donation platform built with HTML, CSS, Bootstrap, JavaScript, Node.js, Express, MongoDB, and Mongoose. The app now includes JWT authentication, bcrypt password hashing, role-based access control, protected APIs, donor search, request management, and an admin dashboard.
 
-The main aim of this application is to connect **blood donors** and **receivers (patients or hospitals)** through a simple web-based system.
+## Features
 
-This project helped me understand how frontend, backend, and database work together in a real-time application.
+### Authentication
 
----
+- User registration
+- User login and logout
+- JWT-based sessions
+- bcryptjs password hashing
+- Protected routes and session-aware frontend guards
 
-## 🙋 About This Project
+### Authorization
 
-I developed this project to gain practical knowledge in **full-stack web development**.
+- Role-based access control
+- Roles: `admin`, `donor`, `receiver`
+- Middleware for authentication, donor access, receiver access, and admin access
 
-In this project, I worked on:
-- Frontend design using HTML, CSS, and Bootstrap
-- Backend API development using Node.js and Express
-- Database integration using MongoDB
-- Connecting frontend and backend using JavaScript
+### User Management
 
-This project gave me hands-on experience in building a complete working system.
+- Profile data with name, email, phone, city, blood group, role, availability status, and created date
+- Profile update flow
+- Admin user management
 
----
+### Blood Requests
 
-## 🎯 Features
+- Receiver request creation
+- Receiver request history
+- Donor request feed
+- Donor accept/reject flow
+- Admin request monitoring and status updates
 
-### Donor Module
-- Donor registration and login
-- View personal profile
-- Update availability status
-- Share contact details with receivers
+### Search
 
-### Receiver Module
-- Receiver registration and login
-- Search donors by blood group and city
-- View available donor details
-- Send blood requests
+- Search donors by blood group
+- Search donors by city
+- Filter donors by availability status
 
-### Admin Module
-- View all registered donors
-- View blood requests
-- Monitor overall system data
+### Admin Dashboard
 
----
+- Total donors
+- Total receivers
+- Total requests
+- Available donors
+- Recent requests
+- User list and delete actions
 
-## 🛠️ Technologies Used
+## Project Structure
 
-### Frontend
-- HTML
-- CSS
-- Bootstrap 5
-- JavaScript
+```text
+backend/
+├── config/
+│   └── db.js
+├── controllers/
+│   ├── adminController.js
+│   ├── authController.js
+│   ├── requestController.js
+│   └── userController.js
+├── middleware/
+│   ├── authMiddleware.js
+│   └── errorMiddleware.js
+├── models/
+│   ├── BloodRequest.js
+│   └── User.js
+├── routes/
+│   ├── admin.js
+│   ├── auth.js
+│   ├── donor.js
+│   └── request.js
+├── utils/
+│   ├── AppError.js
+│   ├── asyncHandler.js
+│   └── jwt.js
+└── server.js
 
-### Backend
-- Node.js
-- Express.js
+root frontend entry pages/
+├── index.html
+├── login.html
+├── register.html
+├── donor-dashboard.html
+├── receiver-dashboard.html
+├── request-blood.html
+├── admin-dashboard.html
+└── profile.html
 
-### Database
-- MongoDB
-- Mongoose
+assets/
+├── css/
+│   └── style.css
+└── js/
+    ├── app.js
+    ├── auth-login.js
+    ├── auth-register.js
+    ├── admin-dashboard-v2.js
+    ├── donor-dashboard-v2.js
+    ├── profile-v2.js
+    ├── receiver-dashboard-v2.js
+    └── request-blood-v2.js
+```
 
----
+## API Routes
 
-## 📁 Project Structure
+### Auth
 
-blood-donation-web-app/
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── server.js
-│   └── package.json
-└── frontend/
-    ├── css/
-    ├── js/
-    ├── index.html
-    ├── login.html
-    ├── register.html
-    ├── donor-dashboard.html
-    ├── request-blood.html
-    └── admin-dashboard.html
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `POST /api/auth/logout`
+- `GET /api/auth/me`
+- `PUT /api/auth/profile`
 
----
+### Donors
 
-## 🚀 How to Run the Project
+- `GET /api/donors/search`
+- `GET /api/donors/available`
+- `GET /api/donor/requests`
+- `PUT /api/donors/availability`
 
-### Step 1: Install Required Software
-- Install Node.js
-- Install MongoDB
+### Requests
 
-### Step 2: Start Backend Server
-cd backend
+- `POST /api/requests`
+- `GET /api/requests/me`
+- `GET /api/requests/donor`
+- `GET /api/requests`
+- `PUT /api/requests/:id/status`
+
+### Admin
+
+- `GET /api/admin/dashboard`
+- `GET /api/admin/users`
+- `PUT /api/admin/users/:id`
+- `DELETE /api/admin/users/:id`
+- `GET /api/admin/requests`
+
+## Environment Variable Setup
+
+Create a local `.env` file in `backend/` from `backend/.env.example`.
+
+Development values should stay local and never be committed:
+
+- `PORT`
+- `MONGODB_URI`
+- `JWT_SECRET`
+- `JWT_EXPIRES_IN`
+- `CLIENT_ORIGIN`
+- `NODE_ENV`
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
+
+Production-specific guards:
+
+- `ALLOW_ADMIN_CREATE=false`
+- `ADMIN_RESET_CONFIRM=no`
+
+`ADMIN_EMAIL` and `ADMIN_PASSWORD` are required when you run the admin management scripts. Keep them in your local `.env` file or inject them through your deployment environment.
+
+## Local Development Workflow
+
+Run the backend from the `backend/` directory:
+
+```bash
 npm install
-node server.js
+npm run dev
+```
 
-### Step 3: Run Frontend
-- Open the frontend folder
-- Open index.html in a web browser
-- Or use Live Server in VS Code
+Serve the frontend over HTTP from the project root:
 
----
+```bash
+npx http-server . -p 5500
+```
 
-## 🔄 How the System Works
+or:
 
-1. User registers as Donor or Receiver
-2. Frontend sends data to backend
-3. Backend stores data in MongoDB
-4. Receiver searches donors using blood group and city
-5. Matching donors are displayed based on availability
+```bash
+python -m http.server 5500
+```
 
----
+Set `CLIENT_ORIGIN=http://localhost:5500` in `backend/.env` for local development.
 
-## 🗄️ Database Details
+Serving the frontend over HTTP is preferred because browsers treat `file://` pages as a `null` origin, which complicates CORS and can block authenticated requests before they reach the app.
 
-### User Data
-- Name
-- Email
-- Phone number
-- Blood group
-- City
-- Role (Donor / Receiver / Admin)
-- Availability status
+The backend allows `null` origin only in development mode to support local testing, but that exception must never be enabled in production.
 
-### Blood Request Data
-- Receiver details
-- Required blood group
-- City
-- Request status
+## Admin Management
 
----
+The backend now uses environment-driven admin scripts.
 
-## 🔮 Future Enhancements
+Create the admin user:
 
-- Password encryption
-- Email or SMS notifications
-- Location-based donor search
-- Mobile application
-- Improved user interface
+```bash
+cd backend
+npm run create-admin
+```
 
----
+Reset the admin password:
 
-## 👨‍💻 Developer Details
+```bash
+cd backend
+npm run reset-admin
+```
 
-Name: Sanjai S  
+Both scripts read `ADMIN_EMAIL` and `ADMIN_PASSWORD` from the environment. In production, `create-admin` only runs when `ALLOW_ADMIN_CREATE=true`, and `reset-admin` requires `ADMIN_RESET_CONFIRM=yes`.
 
----
+## Deployment Checklist
 
-## 📝 Note
+1. Set production environment variables on your host or deployment platform.
+2. Use a strong, unique `JWT_SECRET`.
+3. Keep `ADMIN_EMAIL` and `ADMIN_PASSWORD` out of source control and provision them only in the target environment.
+4. Configure `CLIENT_ORIGIN` to match the deployed frontend domain.
+5. Run `npm run create-admin` only during initial provisioning or controlled recovery.
+6. Use HTTPS in production so JWT-bearing requests are protected in transit.
+7. Confirm `npm run ci:check` passes before each release.
 
-This project is created for **educational purposes only**.
+## Security Checklist
+
+- Admin credentials are no longer hardcoded in the repo scripts.
+- Recovery codes are generated server-side and hashed before storage.
+- 2FA secrets are stored as private fields and excluded from JSON responses.
+- Password confirmation is required before disabling 2FA or regenerating recovery codes.
+- `.env` files are blocked by CI if they are committed.
+- Do not commit production secrets, API keys, or credentials.
+
+## Troubleshooting
+
+- If login or registration fails with a CORS error, confirm the frontend is being served over HTTP and not opened directly from `file://`.
+- If the browser origin is `null`, use `http://localhost:5500` for the frontend and set `CLIENT_ORIGIN` accordingly.
+- If requests still fail, verify the backend is running, `CLIENT_ORIGIN` matches the frontend URL exactly, and the browser cache has been cleared.
+- If you are testing from a file URL, remember that `null` origin support is development-only and should not be used in production.
+
+## Production-Readiness Checklist
+
+- `JWT_SECRET` is long, random, and different from development.
+- `MONGODB_URI` points to the correct database for the environment.
+- `ADMIN_EMAIL` and `ADMIN_PASSWORD` are set only in the target environment.
+- `ALLOW_ADMIN_CREATE` is `false` in production unless you are provisioning on purpose.
+- `ADMIN_RESET_CONFIRM` is `no` unless you are intentionally resetting credentials.
+- HTTPS is enabled on the deployed frontend and backend.
+- `.env` and other secret-bearing files are excluded from version control.
+- The backend starts successfully with the production environment variables.
+- Admin login, user login, and 2FA flows have been verified before release.
+- Root checks pass with `npm run test`, `npm run lint`, and `npm run ci:check`.
+
+## Notes
+
+- The frontend uses `localStorage` to keep the JWT and the current user profile in sync.
+- The backend protects routes with JWT verification and role middleware.
+- The donor and receiver dashboards are separate views, and the profile page supports updating contact details and password.

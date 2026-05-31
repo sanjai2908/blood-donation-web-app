@@ -1,196 +1,478 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blood Donation System - Home</title>
-
-    <!-- Bootstrap 5 CSS -->
+    <title>BloodConnect | Modern Blood Donation SaaS</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <!-- Font Awesome Icons -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="index.html">
-          <i class="fas fa-droplet text-white"></i> Blood Donation System
-        </a>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"
+          ><i class="fas fa-droplet me-2"></i>BloodConnect</a
+        >
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          title="Toggle navigation"
+          data-bs-target="#nav"
           aria-label="Toggle navigation"
+          title="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
             <li class="nav-item">
               <a class="nav-link active" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
+              <a class="nav-link" href="donor-dashboard.html">Donor</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="register.html">Register</a>
+              <a class="nav-link" href="receiver-dashboard.html">Receiver</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin-dashboard.html">Admin</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-danger btn-sm ms-lg-2" href="login.html"
+                >Launch Platform</a
+              >
             </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <!-- UPDATED: Hero Section with Background Image and Overlay -->
-    <section class="hero-section-new">
-      <!-- Background image with dark overlay -->
-      <div class="hero-background">
-        <!-- Blood donation related background image -->
-        <img
-          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=600&fit=crop"
-          alt="Blood Donation Background"
-          class="hero-bg-image"
-        />
-        <!-- Dark transparent overlay for readability -->
-        <div class="hero-overlay"></div>
-      </div>
-
-      <!-- Centered content -->
-      <div class="hero-content">
-        <div class="container">
-          <div class="text-center text-white">
-            <!-- Main Title -->
-            <h1 class="hero-title mb-3 fw-bold">Blood Donation Saves Lives</h1>
-
-            <!-- Subtitle -->
-            <p class="hero-subtitle mb-5">Donate Blood, Save Humanity</p>
-
-            <!-- Action Buttons -->
-            <div class="d-flex flex-wrap justify-content-center gap-3">
-              <!-- Donor Register Button -->
-              <a href="register.html" class="btn btn-light btn-lg hero-btn">
-                <i class="fas fa-user-plus me-2"></i>Donor Register
-              </a>
-
-              <!-- Request Blood Button -->
-              <a
-                href="request-blood.html"
-                class="btn btn-danger btn-lg hero-btn"
-              >
-                <i class="fas fa-tint me-2"></i>Request Blood
-              </a>
-
-              <!-- Login Button -->
-              <a
-                href="login.html"
-                class="btn btn-outline-light btn-lg hero-btn"
-              >
-                <i class="fas fa-sign-in-alt me-2"></i>Login
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features-section py-5">
+    <section class="hero-shell hero-shell--human">
       <div class="container">
-        <h2 class="text-center mb-5">How It Works</h2>
-        <div class="row g-4">
-          <!-- Donor Feature -->
-          <div class="col-md-4">
-            <div class="card feature-card h-100 text-center p-4">
-              <div class="feature-icon mb-3">
-                <i class="fas fa-user-circle fa-4x text-danger"></i>
+        <div class="hero-card hero-card--landing hero-card--human p-4 p-lg-5">
+          <div class="row align-items-center g-4 g-xl-5">
+            <div class="col-lg-7" data-aos="fade-up" data-aos-duration="900">
+              <div class="hero-eyebrow mb-3">
+                <span class="hero-badge">
+                  <i class="fa-solid fa-heart"></i> Saving lives together
+                </span>
+                <span class="hero-badge">
+                  <i class="fa-solid fa-hospital"></i> Donor and hospital
+                  network
+                </span>
               </div>
-              <h4>Register as Donor</h4>
-              <p class="text-muted">
-                Sign up with your details including blood group, age, city, and
-                availability.
+              <h1 class="hero-title hero-title--landing mb-3">
+                Donate Blood. Save Lives.
+              </h1>
+              <p class="hero-copy hero-copy--lead fs-5 mb-3">
+                Connect blood donors, patients, and hospitals through a secure
+                and reliable platform.
               </p>
+              <p class="hero-copy mb-4">
+                Built to support emergency requests, donor coordination, patient
+                care, and hospital connectivity when every minute matters.
+              </p>
+              <div class="d-flex flex-wrap gap-3 hero-actions">
+                <a
+                  class="btn btn-light btn-lg hero-btn-light"
+                  href="register.html"
+                  ><i class="fas fa-user-plus me-2"></i>Become a Donor</a
+                >
+                <a
+                  class="btn btn-danger btn-lg hero-btn-primary"
+                  href="request-blood.html"
+                  ><i class="fas fa-hand-holding-medical me-2"></i>Request
+                  Blood</a
+                >
+              </div>
+              <div class="hero-badge-row mt-4">
+                <span class="badge badge-soft">Emergency support</span>
+                <span class="badge badge-soft">Blood donor community</span>
+                <span class="badge badge-soft">Patient support</span>
+                <span class="badge badge-soft">Hospital connectivity</span>
+                <span class="badge badge-soft">Real donor impact</span>
+              </div>
             </div>
-          </div>
-
-          <!-- Receiver Feature -->
-          <div class="col-md-4">
-            <div class="card feature-card h-100 text-center p-4">
-              <div class="feature-icon mb-3">
-                <i class="fas fa-hospital fa-4x text-danger"></i>
+            <div class="col-lg-5" data-aos="zoom-in" data-aos-delay="150">
+              <div
+                class="glass-panel hero-photo-wrap p-0 overflow-hidden rounded-4"
+              >
+                <div class="hero-photo-container position-relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80"
+                    alt="Blood donation in a hospital with donor and nurse"
+                    class="img-fluid hero-photo-img"
+                  />
+                  <div class="hero-photo-overlay"></div>
+                  <div
+                    class="hero-photo-caption text-white text-center px-4 py-3"
+                  >
+                    <h3 class="mb-2">Real donors. Real care.</h3>
+                    <p class="mb-0">
+                      Professional blood donation support in a hospital
+                      environment.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <h4>Request Blood</h4>
-              <p class="text-muted">
-                Receivers can search for available donors by blood group and
-                city.
-              </p>
-            </div>
-          </div>
-
-          <!-- Match Feature -->
-          <div class="col-md-4">
-            <div class="card feature-card h-100 text-center p-4">
-              <div class="feature-icon mb-3">
-                <i class="fas fa-handshake fa-4x text-danger"></i>
-              </div>
-              <h4>Connect & Save Lives</h4>
-              <p class="text-muted">
-                Get instant matches and contact information to connect with
-                donors.
-              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Statistics Section -->
-    <section class="stats-section bg-danger text-white py-5">
+    <section class="blood-groups-section">
       <div class="container">
-        <div class="row text-center">
-          <div class="col-md-3">
-            <h2 class="display-4 fw-bold">10K+</h2>
-            <p>Registered Donors</p>
+        <div class="section-shell section-shell--soft" data-aos="fade-up">
+          <div class="section-shell__head mb-4">
+            <div>
+              <span class="section-kicker">Blood group matching</span>
+              <h2 class="fw-bold mb-2">Find the right donor faster</h2>
+              <p class="text-muted mb-0">
+                Quick visual matching for the most commonly requested blood
+                groups.
+              </p>
+            </div>
           </div>
-          <div class="col-md-3">
-            <h2 class="display-4 fw-bold">5K+</h2>
-            <p>Lives Saved</p>
-          </div>
-          <div class="col-md-3">
-            <h2 class="display-4 fw-bold">50+</h2>
-            <p>Cities Covered</p>
-          </div>
-          <div class="col-md-3">
-            <h2 class="display-4 fw-bold">24/7</h2>
-            <p>Support Available</p>
+          <div class="row g-3">
+            <div class="col-6 col-lg-3">
+              <div class="blood-group-card blood-group-card--a">
+                <span class="blood-group-card__type">A+</span>
+                <strong>High demand</strong>
+                <p>Frequently requested for emergency support.</p>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3">
+              <div class="blood-group-card blood-group-card--b">
+                <span class="blood-group-card__type">B+</span>
+                <strong>Community needed</strong>
+                <p>Reliable donor connections for hospitals.</p>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3">
+              <div class="blood-group-card blood-group-card--o">
+                <span class="blood-group-card__type">O+</span>
+                <strong>Universal support</strong>
+                <p>Essential in urgent care and trauma response.</p>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3">
+              <div class="blood-group-card blood-group-card--ab">
+                <span class="blood-group-card__type">AB+</span>
+                <strong>Rare match</strong>
+                <p>Critical support for special transfusion needs.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
+    <section class="pb-2 hero-stats-shell">
+      <div class="container">
+        <div class="row g-3 text-center hero-stats-row">
+          <div class="col-6 col-lg-3" data-aos="fade-up">
+            <div class="kpi">
+              <div class="value">1200+</div>
+              <div class="label">Registered Donors</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="80">
+            <div class="kpi">
+              <div class="value">350+</div>
+              <div class="label">Active Requests</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="120">
+            <div class="kpi">
+              <div class="value">50+</div>
+              <div class="label">Partner Hospitals</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="180">
+            <div class="kpi">
+              <div class="value">99.9%</div>
+              <div class="label">Platform Availability</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="section-shell section-shell--dark" data-aos="fade-up">
+          <div class="section-shell__head section-shell__head--light mb-4">
+            <div>
+              <span class="section-kicker section-kicker--light"
+                >Life-saving network</span
+              >
+              <h2 class="fw-bold mb-2 text-white">
+                Built around real people and real emergencies
+              </h2>
+              <p class="mb-0 text-white-50">
+                Donors, patients, and hospitals connected through a warm,
+                trusted blood donation experience.
+              </p>
+            </div>
+          </div>
+          <div class="row g-4 align-items-stretch">
+            <div class="col-lg-4">
+              <div class="experience-card experience-card--image h-100">
+                <img
+                  src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80"
+                  alt="Blood donor signing up with medical staff support"
+                />
+                <div class="experience-card__body">
+                  <span class="experience-card__tag">Donor community</span>
+                  <h5>Find Blood Donors</h5>
+                  <p>Search nearby donors by blood group and availability.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="experience-card experience-card--image h-100">
+                <img
+                  src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=800&q=80"
+                  alt="Nurse supporting a patient during blood donation"
+                />
+                <div class="experience-card__body">
+                  <span class="experience-card__tag">Patient support</span>
+                  <h5>Emergency Blood Requests</h5>
+                  <p>
+                    Rapid request flow for urgent patient needs and support.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="experience-card experience-card--image h-100">
+                <img
+                  src="https://images.unsplash.com/photo-1550831107-1553da8c8464?auto=format&fit=crop&w=800&q=80"
+                  alt="Healthcare team in a hospital coordinating blood support"
+                />
+                <div class="experience-card__body">
+                  <span class="experience-card__tag"
+                    >Hospital connectivity</span
+                  >
+                  <h5>Hospital Support</h5>
+                  <p>
+                    Coordinate hospitals, blood banks, and donors with
+                    confidence.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row g-4 mt-2">
+            <div class="col-md-4">
+              <div class="feature-card feature-card--visual p-4 h-100">
+                <div class="feature-card__icon-wrap">
+                  <i class="fas fa-user-nurse"></i>
+                </div>
+                <h5>Donor Availability</h5>
+                <p class="text-muted mb-0">
+                  Keep availability visible so the right donor can respond fast.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="feature-card feature-card--visual p-4 h-100">
+                <div class="feature-card__icon-wrap">
+                  <i class="fas fa-shield-heart"></i>
+                </div>
+                <h5>Secure Accounts</h5>
+                <p class="text-muted mb-0">
+                  Protect donor and patient information while keeping access
+                  simple.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="feature-card feature-card--visual p-4 h-100">
+                <div class="feature-card__icon-wrap">
+                  <i class="fas fa-route"></i>
+                </div>
+                <h5>Request Tracking</h5>
+                <p class="text-muted mb-0">
+                  Follow every blood request from urgent need to completion.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="emergency-section py-5">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-6" data-aos="fade-right">
+            <div class="emergency-panel">
+              <span class="section-kicker">Emergency blood requests</span>
+              <h2 class="fw-bold text-white mb-3">
+                When time matters, every donor response counts.
+              </h2>
+              <p class="text-white-50 mb-4">
+                BloodConnect helps families, patients, and hospitals act quickly
+                when urgent blood is needed.
+              </p>
+              <div class="emergency-grid">
+                <div class="emergency-tile">
+                  <i class="fas fa-truck-medical"></i>
+                  <strong>Fast matching</strong>
+                </div>
+                <div class="emergency-tile">
+                  <i class="fas fa-phone-volume"></i>
+                  <strong>Support ready</strong>
+                </div>
+                <div class="emergency-tile">
+                  <i class="fas fa-hands-holding-heart"></i>
+                  <strong>Human support</strong>
+                </div>
+                <div class="emergency-tile">
+                  <i class="fas fa-clipboard-check"></i>
+                  <strong>Request tracking</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <div class="emergency-visual-stack">
+              <img
+                class="emergency-main-visual"
+                src="assets/emergency-response.svg"
+                alt="Emergency blood donation response in hospital"
+                onerror="
+                  this.closest('.emergency-visual-stack')?.classList.add(
+                    'image-load-failed',
+                  )
+                "
+                onload="
+                  this.closest('.emergency-visual-stack')?.classList.remove(
+                    'image-load-failed',
+                  )
+                "
+              />
+              <div class="emergency-float-card emergency-float-card--top">
+                <span class="small text-muted">Urgent request</span>
+                <strong>O+ blood needed in under 1 hour</strong>
+              </div>
+              <div class="emergency-float-card emergency-float-card--bottom">
+                <span class="small text-muted">Response status</span>
+                <strong>3 donors available nearby</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hospital-section py-5">
+      <div class="container">
+        <div class="section-shell section-shell--soft" data-aos="fade-up">
+          <div class="section-shell__head mb-4">
+            <div>
+              <span class="section-kicker">Hospital partnerships</span>
+              <h2 class="fw-bold mb-2">Trusted by hospitals and care teams</h2>
+              <p class="text-muted mb-0">
+                Designed to support blood banks, emergency rooms, and patient
+                care coordination.
+              </p>
+            </div>
+          </div>
+          <div class="hospital-strip">
+            <div class="hospital-mark">
+              <i class="fas fa-hospital-user"></i>
+              <strong>City Medical Center</strong>
+            </div>
+            <div class="hospital-mark">
+              <i class="fas fa-clinic-medical"></i>
+              <strong>Northside Blood Bank</strong>
+            </div>
+            <div class="hospital-mark">
+              <i class="fas fa-staff-snake"></i>
+              <strong>CareBridge Hospital</strong>
+            </div>
+            <div class="hospital-mark">
+              <i class="fas fa-hand-holding-medical"></i>
+              <strong>Emergency Response Unit</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-5 security-section">
+      <div class="container" data-aos="fade-up">
+        <div class="card p-4 p-lg-5">
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"
+          >
+            <h3 class="fw-bold mb-0">Security & Platform Reliability</h3>
+            <span class="badge badge-soft">Secondary section</span>
+          </div>
+          <p class="text-muted mb-4">
+            BloodConnect also includes the technical foundations that keep the
+            service secure, reliable, and scalable.
+          </p>
+          <div class="row g-3">
+            <div class="col-md-6 col-lg-3">
+              <span class="badge badge-soft w-100 p-3">JWT Authentication</span>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <span class="badge badge-soft w-100 p-3"
+                >Role-Based Access Control</span
+              >
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <span class="badge badge-soft w-100 p-3"
+                >Google Authenticator 2FA</span
+              >
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <span class="badge badge-soft w-100 p-3">Recovery Codes</span>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <span class="badge badge-soft w-100 p-3">Secure REST APIs</span>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <span class="badge badge-soft w-100 p-3">MongoDB Database</span>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <span class="badge badge-soft w-100 p-3">Admin Analytics</span>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <span class="badge badge-soft w-100 p-3"
+                >Production Reliability</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer py-4">
       <div class="container text-center">
-        <p class="mb-0">&copy; 2026 Blood Donation System</p>
-        <p class="text-muted small mt-2">
-          Developed with <i class="fas fa-heart text-danger"></i> for saving
-          lives
+        <p class="mb-1 fw-semibold">BloodConnect</p>
+        <p class="mb-0 small text-white-50">
+          Premium healthcare "Donate Blood. Save Lives. Make a Difference".
         </p>
       </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 700, once: true, offset: 40 });
+    </script>
   </body>
 </html>

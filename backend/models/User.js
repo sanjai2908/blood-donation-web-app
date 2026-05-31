@@ -1,21 +1,13 @@
-// =============================================
-// USER MODEL - MongoDB Schema for Users
-// =============================================
-// This file defines the structure of user data in MongoDB
-// It handles both Donor and Receiver user types
-
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
-// Define the User Schema
 const userSchema = new mongoose.Schema({
-  // Full name of the user
   name: {
     type: String,
     required: true,
     trim: true,
   },
 
-  // Email address - used for login (must be unique)
   email: {
     type: String,
     required: true,
@@ -24,59 +16,86 @@ const userSchema = new mongoose.Schema({
     trim: true,
   },
 
-  // Password - stored as plain text for simplicity (in production, use bcrypt)
   password: {
     type: String,
     required: true,
+    select: false,
   },
 
-  // User role: 'donor', 'receiver', or 'admin'
   role: {
     type: String,
     required: true,
     enum: ["donor", "receiver", "admin"],
-    default: "donor",
+    default: "receiver",
   },
 
-  // Blood group - only for donors
   bloodGroup: {
     type: String,
     enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", ""],
     default: "",
   },
 
-  // Age - only for donors
-  age: {
-    type: Number,
-    min: 18,
-    max: 65,
-  },
-
-  // Phone number
   phone: {
     type: String,
     required: true,
+    trim: true,
   },
 
-  // City where user lives
   city: {
     type: String,
     required: true,
     trim: true,
   },
 
-  // Availability status - only for donors (true = available to donate)
-  isAvailable: {
+  availabilityStatus: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 
-  // Timestamp when user registered
+  twoFactorEnabled: {
+    type: Boolean,
+    default: false,
+  },
+
+  twoFactorSecret: {
+    type: String,
+    select: false,
+    default: "",
+  },
+
+  recoveryCodes: {
+    type: [String],
+    select: false,
+    default: [],
+  },
+
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-// Create and export the User model
+userSchema.pre("save", async function hashPassword() {
+  if (!this.isModified("password")) {
+    return;
+  }
+
+  this.password = await bcrypt.hash(this.password, 12);
+});
+
+userSchema.methods.comparePassword = async function comparePassword(
+  candidatePassword,
+) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
+
+userSchema.set("toJSON", {
+  transform: (_, ret) => {
+    delete ret.password;
+    delete ret.twoFactorSecret;
+    delete ret.recoveryCodes;
+    return ret;
+  },
+});
+
 module.exports = mongoose.model("User", userSchema);

@@ -1,257 +1,930 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Request Blood - Blood Donation System</title>
-
-    <!-- Bootstrap 5 CSS -->
+    <title>Blood Request | BloodConnect</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <!-- Font Awesome Icons -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .request-header {
+        background: linear-gradient(
+          135deg,
+          #0f172a 0%,
+          #1e3a5f 50%,
+          #dc2626 100%
+        );
+        padding: 2.5rem 0;
+        color: white;
+        margin-bottom: 2rem;
+      }
+
+      .urgency-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+
+      .urgency-badge.critical {
+        background: linear-gradient(135deg, #dc2626, #991b1b);
+        color: white;
+      }
+
+      .urgency-badge.high {
+        background: linear-gradient(135deg, #f97316, #ea580c);
+        color: white;
+      }
+
+      .urgency-badge.normal {
+        background: linear-gradient(135deg, #eab308, #ca8a04);
+        color: #1f2937;
+      }
+
+      .urgency-badge::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+        animation: urgency-pulse 1.5s infinite;
+      }
+
+      @keyframes urgency-pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+
+      .emergency-card {
+        background: linear-gradient(135deg, #fef2f2, #fff5f5);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 2px solid #fca5a5;
+        box-shadow: 0 8px 24px rgba(220, 38, 38, 0.15);
+        transition: all 300ms ease;
+        margin-bottom: 1.5rem;
+      }
+
+      .emergency-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 36px rgba(220, 38, 38, 0.25);
+      }
+
+      .emergency-card-header {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        color: white;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .emergency-card-body {
+        padding: 1.5rem;
+      }
+
+      .request-detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+      }
+
+      .request-detail-row:last-child {
+        border-bottom: none;
+      }
+
+      .detail-label {
+        font-size: 0.9rem;
+        color: #64748b;
+        font-weight: 600;
+      }
+
+      .detail-value {
+        font-size: 1rem;
+        color: #0f172a;
+        font-weight: 700;
+      }
+
+      .status-workflow {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(220, 38, 38, 0.1);
+        flex-wrap: wrap;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 0.9rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .status-pending {
+        background: rgba(239, 68, 68, 0.1);
+        color: #991b1b;
+      }
+
+      .status-accepted {
+        background: rgba(16, 185, 129, 0.1);
+        color: #065f46;
+      }
+
+      .status-completed {
+        background: rgba(59, 130, 246, 0.1);
+        color: #1e40af;
+      }
+
+      .request-action-buttons {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .btn-primary-request {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        border: none;
+        background: #dc2626;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 300ms ease;
+      }
+
+      .btn-primary-request:hover {
+        background: #b91c1c;
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary-request {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        border: 2px solid #e5e7eb;
+        background: white;
+        color: #64748b;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 300ms ease;
+      }
+
+      .btn-secondary-request:hover {
+        border-color: #cbd5e1;
+        background: #f9f9fb;
+      }
+
+      .search-panel {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+        border: 1px solid rgba(15, 23, 42, 0.06);
+        margin-bottom: 2rem;
+      }
+
+      .search-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .form-group-custom {
+        margin-bottom: 1.25rem;
+      }
+
+      .form-group-custom label {
+        font-weight: 600;
+        color: #0f172a;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-group-custom input,
+      .form-group-custom select {
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+      }
+
+      .form-group-custom input:focus,
+      .form-group-custom select:focus {
+        border-color: #dc2626;
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      }
+
+      .analytics-card {
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+        border: 1px solid rgba(15, 23, 42, 0.06);
+      }
+
+      .analytics-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+      }
+
+      .analytics-label {
+        font-size: 0.95rem;
+        color: #64748b;
+        font-weight: 600;
+      }
+
+      .timeline {
+        position: relative;
+        padding: 0;
+      }
+
+      .timeline-step {
+        padding: 1.5rem 0 1.5rem 2.5rem;
+        border-left: 2px solid #e5e7eb;
+        position: relative;
+      }
+
+      .timeline-step::before {
+        content: "";
+        position: absolute;
+        left: -8px;
+        top: 1.75rem;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid #dc2626;
+      }
+
+      .timeline-step:last-child {
+        border-left: none;
+      }
+
+      .timeline-step-label {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-step-text {
+        font-size: 0.95rem;
+        color: #0f172a;
+        font-weight: 600;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 3rem 1.5rem;
+      }
+
+      .empty-state i {
+        font-size: 4rem;
+        color: #cbd5e1;
+        margin-bottom: 1rem;
+      }
+
+      .empty-state-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+      }
+
+      .empty-state-text {
+        font-size: 0.95rem;
+        color: #64748b;
+      }
+
+      .donor-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1rem;
+        border: 1px solid #e5e7eb;
+        margin-bottom: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 300ms ease;
+      }
+
+      .donor-card:hover {
+        border-color: #dc2626;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.1);
+      }
+
+      .donor-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex: 1;
+      }
+
+      .donor-avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #dc2626, #ef4444);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+      }
+
+      .donor-details h6 {
+        margin: 0;
+        color: #0f172a;
+        font-weight: 600;
+      }
+
+      .donor-details small {
+        color: #64748b;
+      }
+
+      .btn-contact {
+        padding: 0.5rem 1rem;
+        background: #dc2626;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 300ms ease;
+      }
+
+      .btn-contact:hover {
+        background: #b91c1c;
+      }
+
+      @media (max-width: 768px) {
+        .request-header h1 {
+          font-size: 1.75rem;
+        }
+
+        .analytics-value {
+          font-size: 2rem;
+        }
+
+        .emergency-card-body {
+          padding: 1rem;
+        }
+      }
+    </style>
   </head>
   <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark"
+      style="background: linear-gradient(135deg, #0f172a, #1e3a5f)"
+    >
       <div class="container">
-        <a class="navbar-brand" href="index.html">
-          <i class="fas fa-heartbeat"></i> Blood Donation System
+        <a class="navbar-brand fw-bold" href="index.html">
+          <i class="fas fa-droplet me-2" style="color: #dc2626"></i>BloodConnect
         </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          title="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <span class="nav-link">
-                <i class="fas fa-user"></i> <span id="userName">Receiver</span>
-              </span>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i> Logout
-              </a>
-            </li>
-          </ul>
+        <div class="ms-auto d-flex gap-2 align-items-center">
+          <span class="text-white fw-semibold" id="userName">Receiver</span>
+          <a class="nav-link text-white" href="receiver-dashboard.html"
+            >Dashboard</a
+          >
+          <a class="nav-link text-white" href="profile.html">Profile</a>
+          <button class="btn btn-outline-light btn-sm" onclick="logout()">
+            Logout
+          </button>
         </div>
       </div>
     </nav>
 
-    <!-- Request Blood Section -->
-    <section class="request-section py-5">
+    <div class="request-header">
       <div class="container">
-        <div class="row">
-          <!-- Request Form -->
-          <div class="col-lg-5 mb-4">
-            <div class="card shadow">
-              <div class="card-header bg-danger text-white">
-                <h5 class="mb-0">
-                  <i class="fas fa-hand-holding-medical"></i> Request Blood
-                </h5>
-              </div>
-              <div class="card-body">
-                <!-- Alert Messages -->
-                <div
-                  id="alertMessage"
-                  class="alert alert-dismissible fade d-none"
-                  role="alert"
-                >
-                  <span id="alertText"></span>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                    title="Close alert"
-                    aria-label="Close"
-                  ></button>
-                </div>
-
-                <form id="requestForm">
-                  <!-- Blood Group Needed -->
-                  <div class="mb-3">
-                    <label for="bloodGroupNeeded" class="form-label">
-                      <i class="fas fa-tint"></i> Required Blood Group
-                    </label>
-                    <select class="form-select" id="bloodGroupNeeded" required>
-                      <option value="">-- Select Blood Group --</option>
-                      <option value="A+">A+</option>
-                      <option value="A-">A-</option>
-                      <option value="B+">B+</option>
-                      <option value="B-">B-</option>
-                      <option value="AB+">AB+</option>
-                      <option value="AB-">AB-</option>
-                      <option value="O+">O+</option>
-                      <option value="O-">O-</option>
-                    </select>
-                  </div>
-
-                  <!-- UPDATED: City Dropdown with Indian Cities -->
-                  <div class="mb-3">
-                    <label for="city" class="form-label">
-                      <i class="fas fa-map-marker-alt"></i> City
-                    </label>
-                    <select class="form-select" id="city" required>
-                      <option value="">-- Select Your City --</option>
-                      <!-- North India -->
-                      <optgroup label="North India">
-                        <option value="Delhi">Delhi</option>
-                        <option value="Noida">Noida</option>
-                        <option value="Gurgaon">Gurgaon</option>
-                        <option value="Chandigarh">Chandigarh</option>
-                        <option value="Lucknow">Lucknow</option>
-                        <option value="Jaipur">Jaipur</option>
-                        <option value="Agra">Agra</option>
-                        <option value="Kanpur">Kanpur</option>
-                      </optgroup>
-                      <!-- South India -->
-                      <optgroup label="South India">
-                        <option value="Bangalore">Bangalore</option>
-                        <option value="Hyderabad">Hyderabad</option>
-                        <option value="Chennai">Chennai</option>
-                        <option value="Coimbatore">Coimbatore</option>
-                        <option value="Madurai">Madurai</option>
-                        <option value="Trichy">Trichy</option>
-                        <option value="Salem">Salem</option>
-                        <option value="Kochi">Kochi</option>
-                        <option value="Trivandrum">Trivandrum</option>
-                        <option value="Puducherry">Puducherry</option>
-                        <option value="Villupuram">Villupuram</option>
-                        <option value="Vijayawada">Vijayawada</option>
-                        <option value="Vizag">Vizag</option>
-                      </optgroup>
-                      <!-- West India -->
-                      <optgroup label="West India">
-                        <option value="Mumbai">Mumbai</option>
-                        <option value="Pune">Pune</option>
-                        <option value="Ahmedabad">Ahmedabad</option>
-                        <option value="Surat">Surat</option>
-                        <option value="Vadodara">Vadodara</option>
-                        <option value="Rajkot">Rajkot</option>
-                      </optgroup>
-                      <!-- East India -->
-                      <optgroup label="East India">
-                        <option value="Kolkata">Kolkata</option>
-                        <option value="Patna">Patna</option>
-                        <option value="Bhubaneswar">Bhubaneswar</option>
-                        <option value="Guwahati">Guwahati</option>
-                      </optgroup>
-                    </select>
-                  </div>
-
-                  <!-- NEW: Required Date -->
-                  <div class="mb-3">
-                    <label for="requiredDate" class="form-label">
-                      <i class="fas fa-calendar-alt"></i> Required Date
-                    </label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="requiredDate"
-                      required
-                    />
-                  </div>
-
-                  <!-- NEW: Contact Phone -->
-                  <div class="mb-3">
-                    <label for="contactPhone" class="form-label">
-                      <i class="fas fa-phone"></i> Your Contact Phone
-                    </label>
-                    <input
-                      type="tel"
-                      class="form-control"
-                      id="contactPhone"
-                      placeholder="Enter 10-digit phone number"
-                      pattern="[0-9]{10}"
-                      required
-                    />
-                  </div>
-
-                  <!-- Submit Button -->
-                  <div class="d-grid">
-                    <button type="submit" class="btn btn-danger btn-lg">
-                      <i class="fas fa-search"></i> Request Blood
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <!-- Info Card -->
-            <div class="card shadow mt-4">
-              <div class="card-body">
-                <h6 class="fw-bold text-danger">
-                  <i class="fas fa-info-circle"></i> How it works:
-                </h6>
-                <ol class="mb-0">
-                  <li>Select the blood group you need</li>
-                  <li>Enter your city</li>
-                  <li>Click "Find Donors"</li>
-                  <li>View available donors</li>
-                  <li>Contact donors directly</li>
-                </ol>
-              </div>
-            </div>
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h1 class="mb-2 fs-1 fw-bold">Blood Request Coordination</h1>
+            <p class="mb-0 text-white-50" style="font-size: 1.05rem">
+              Search for available donors, submit emergency requests, and track
+              fulfillment in real-time.
+            </p>
           </div>
-
-          <!-- Donors List -->
-          <div class="col-lg-7">
-            <div class="card shadow">
-              <div class="card-header bg-success text-white">
-                <h5 class="mb-0">
-                  <i class="fas fa-users"></i> Available Donors
-                  <span id="donorCount" class="badge bg-light text-dark"
-                    >0</span
-                  >
-                </h5>
-              </div>
-              <div class="card-body">
-                <!-- Empty State -->
-                <div id="emptyState" class="text-center py-5">
-                  <i class="fas fa-search fa-4x text-muted mb-3"></i>
-                  <h5 class="text-muted">Search for Donors</h5>
-                  <p class="text-muted">
-                    Select blood group and city to find available donors
-                  </p>
-                </div>
-
-                <!-- Donors List Container -->
-                <div id="donorsList" class="d-none">
-                  <!-- Donors will be loaded here dynamically -->
-                </div>
-              </div>
+          <div class="col-lg-4 text-lg-end">
+            <div style="color: white; font-weight: 700">
+              <span style="font-size: 0.9rem; opacity: 0.9">Active Donors</span
+              ><br />
+              <span id="activeDonorCount" style="font-size: 1.8rem">0</span>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
-      <div class="container text-center">
-        <p class="mb-0">&copy; 2026 Blood Donation System</p>
+    <div class="container pb-5">
+      <div
+        id="alertMessage"
+        class="alert alert-dismissible fade d-none"
+        role="alert"
+      >
+        <span id="alertText"></span>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close alert"
+          title="Close alert"
+        ></button>
+      </div>
+
+      <!-- Analytics Cards -->
+      <div class="row g-3 mb-5" data-aos="fade-up">
+        <div class="col-md-6 col-lg-3">
+          <div class="analytics-card">
+            <div
+              style="
+                width: 50px;
+                height: 50px;
+                border-radius: 12px;
+                background: rgba(220, 38, 38, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #dc2626;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-hourglass-start"></i>
+            </div>
+            <div class="analytics-value" id="pendingRequests">0</div>
+            <div class="analytics-label">Pending Requests</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="analytics-card">
+            <div
+              style="
+                width: 50px;
+                height: 50px;
+                border-radius: 12px;
+                background: rgba(16, 185, 129, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #10b981;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="analytics-value" id="acceptedRequests">0</div>
+            <div class="analytics-label">Accepted This Month</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="analytics-card">
+            <div
+              style="
+                width: 50px;
+                height: 50px;
+                border-radius: 12px;
+                background: rgba(59, 130, 246, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #3b82f6;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="analytics-value" id="avgResponse">—</div>
+            <div class="analytics-label">Avg Response Time</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="analytics-card">
+            <div
+              style="
+                width: 50px;
+                height: 50px;
+                border-radius: 12px;
+                background: rgba(168, 85, 247, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #a855f7;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+              "
+            >
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="analytics-value" id="uniqueDonors">0</div>
+            <div class="analytics-label">Available Donors</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- Search & Request Panel -->
+        <div class="col-lg-5" data-aos="fade-up">
+          <div class="search-panel">
+            <div class="search-title">
+              <i class="fas fa-search" style="color: #dc2626"></i>Find Donors
+            </div>
+            <form id="searchForm">
+              <div class="form-group-custom">
+                <label for="searchBloodGroup">Blood Group</label>
+                <select class="form-control" id="searchBloodGroup" required>
+                  <option value="">Select blood group...</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                </select>
+              </div>
+              <div class="form-group-custom">
+                <label for="searchCity">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="searchCity"
+                  placeholder="Enter city name..."
+                />
+              </div>
+              <div class="form-group-custom">
+                <label for="availabilityFilter">Availability</label>
+                <select class="form-control" id="searchAvailability">
+                  <option value="">All Status</option>
+                  <option value="available">Available Now</option>
+                  <option value="unavailable">Unavailable</option>
+                </select>
+              </div>
+              <button type="submit" class="btn-primary-request w-100">
+                <i class="fas fa-search me-2"></i>Search Donors
+              </button>
+            </form>
+          </div>
+
+          <div class="search-panel">
+            <div class="search-title">
+              <i class="fas fa-exclamation-circle" style="color: #dc2626"></i
+              >Emergency Request
+            </div>
+            <form id="requestForm">
+              <div class="form-group-custom">
+                <label for="bloodGroupNeeded">Blood Group Required</label>
+                <select class="form-control" id="bloodGroupNeeded" required>
+                  <option value="">Select blood group...</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                </select>
+              </div>
+              <div class="form-group-custom">
+                <label for="city">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  placeholder="Hospital location..."
+                />
+              </div>
+              <div class="form-group-custom">
+                <label for="requiredDate">Required By Date</label>
+                <input type="date" class="form-control" id="requiredDate" />
+              </div>
+              <div class="form-group-custom">
+                <label for="urgencyLevel">Urgency Level</label>
+                <select class="form-control" id="urgencyLevel">
+                  <option value="normal">Normal</option>
+                  <option value="high">High</option>
+                  <option value="critical">Critical</option>
+                </select>
+              </div>
+              <div class="form-group-custom">
+                <label for="contactPhone">Contact Phone</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="contactPhone"
+                  placeholder="+1 (555) 000-0000"
+                />
+              </div>
+              <div class="form-group-custom">
+                <label for="message">Additional Notes</label>
+                <textarea
+                  class="form-control"
+                  id="message"
+                  rows="3"
+                  placeholder="Add any urgency notes..."
+                ></textarea>
+              </div>
+              <button type="submit" class="btn-primary-request w-100">
+                <i class="fas fa-paper-plane me-2"></i>Submit Request
+              </button>
+            </form>
+
+            <div
+              style="
+                background: linear-gradient(135deg, #fef2f2, #fff5f5);
+                border-radius: 12px;
+                padding: 1.5rem;
+                border-left: 4px solid #dc2626;
+                margin-top: 1.5rem;
+              "
+            >
+              <div
+                style="font-weight: 700; color: #0f172a; margin-bottom: 0.75rem"
+              >
+                <i class="fas fa-circle-info me-2" style="color: #dc2626"></i
+                >Workflow Status Guide
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.75rem">
+                <span class="status-badge status-pending">
+                  <i class="fas fa-circle"></i> Pending
+                </span>
+                <span class="status-badge status-accepted">
+                  <i class="fas fa-circle"></i> Accepted
+                </span>
+                <span class="status-badge status-completed">
+                  <i class="fas fa-circle"></i> Completed
+                </span>
+              </div>
+              <div
+                style="font-size: 0.85rem; color: #64748b; margin-top: 0.75rem"
+              >
+                Every request follows a trackable lifecycle for complete
+                operational visibility.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Emergency Requests & Donors -->
+        <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+          <!-- Emergency Requests Section -->
+          <div style="margin-bottom: 2.5rem">
+            <div
+              style="
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+              "
+            >
+              <i class="fas fa-fire" style="color: #dc2626"></i>Active Emergency
+              Requests
+            </div>
+            <div id="emergencyRequestsContainer"></div>
+            <div id="emptyEmergency" class="empty-state" style="display: none">
+              <i class="fas fa-inbox"></i>
+              <div class="empty-state-title">No Active Emergency Requests</div>
+              <div class="empty-state-text">
+                Submit a request or search for available donors above
+              </div>
+            </div>
+          </div>
+
+          <!-- Available Donors Section -->
+          <div>
+            <div
+              style="
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+              "
+            >
+              <i class="fas fa-heart" style="color: #10b981"></i>Available
+              Donors (<span id="donorCount">0</span>)
+            </div>
+            <div id="emptyState" class="empty-state" style="display: none">
+              <i class="fas fa-search"></i>
+              <div class="empty-state-title">
+                Run a search or create a request
+              </div>
+              <div class="empty-state-text">
+                Filters by blood group, city, and availability.
+              </div>
+            </div>
+            <div id="donorsList"></div>
+          </div>
+
+          <!-- Request Timeline -->
+          <div
+            style="
+              background: white;
+              border-radius: 20px;
+              padding: 2rem;
+              box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+              border: 1px solid rgba(15, 23, 42, 0.06);
+              margin-top: 2.5rem;
+            "
+          >
+            <h3
+              style="
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 1.5rem;
+              "
+            >
+              <i class="fas fa-route me-2" style="color: #dc2626"></i>Blood
+              Request Workflow
+            </h3>
+            <div class="timeline">
+              <div class="timeline-step">
+                <div class="timeline-step-label">Step 1</div>
+                <div class="timeline-step-text">
+                  Receiver submits request with blood group and required date
+                </div>
+              </div>
+              <div class="timeline-step">
+                <div class="timeline-step-label">Step 2</div>
+                <div class="timeline-step-text">
+                  System identifies matching donors based on location and
+                  availability
+                </div>
+              </div>
+              <div class="timeline-step">
+                <div class="timeline-step-label">Step 3</div>
+                <div class="timeline-step-text">
+                  Donors receive notification and accept or reject request
+                </div>
+              </div>
+              <div class="timeline-step">
+                <div class="timeline-step-label">Step 4</div>
+                <div class="timeline-step-text">
+                  Donation completed and request marked fulfilled
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Request History -->
+          <div
+            style="
+              background: white;
+              border-radius: 20px;
+              padding: 2rem;
+              box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+              border: 1px solid rgba(15, 23, 42, 0.06);
+              margin-top: 2rem;
+            "
+          >
+            <h3
+              style="
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 1.5rem;
+              "
+            >
+              Request History
+            </h3>
+            <div class="table-responsive">
+              <table class="table align-middle" style="margin-bottom: 0">
+                <thead
+                  style="background: #f9fafb; border-bottom: 2px solid #e5e7eb"
+                >
+                  <tr>
+                    <th
+                      style="
+                        color: #64748b;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                      "
+                    >
+                      #
+                    </th>
+                    <th
+                      style="
+                        color: #64748b;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                      "
+                    >
+                      Blood Group
+                    </th>
+                    <th
+                      style="
+                        color: #64748b;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                      "
+                    >
+                      City
+                    </th>
+                    <th
+                      style="
+                        color: #64748b;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                      "
+                    >
+                      Required Date
+                    </th>
+                    <th
+                      style="
+                        color: #64748b;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                      "
+                    >
+                      Status
+                    </th>
+                    <th
+                      style="
+                        color: #64748b;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                      "
+                    >
+                      Created
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="requestsHistoryBody">
+                  <tr>
+                    <td
+                      colspan="6"
+                      style="text-align: center; color: #94a3b8; padding: 2rem"
+                    >
+                      Loading...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer
+      class="footer py-4 mt-5"
+      style="background: #0f172a; color: white; text-align: center"
+    >
+      <div class="container">
+        <p class="mb-0 small">
+          BloodConnect © 2024 - Blood Donation Management System
+        </p>
       </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JavaScript -->
-    <script src="js/request-blood.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 650, once: true, offset: 40 });
+    </script>
+    <script src="js/app.js"></script>
+    <script src="js/request-blood-v2.js"></script>
   </body>
 </html>

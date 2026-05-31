@@ -1,64 +1,64 @@
-// =============================================
-// CREATE ADMIN USER SCRIPT
-// =============================================
-// Run this script to create an admin user in MongoDB
-
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-// Import User model
 const User = require("./models/User");
+const connectDB = require("./config/db");
 
-// MongoDB connection string
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/blood-donation";
+async function createAdmin() {
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
+  const allowCreate =
+    process.env.ALLOW_ADMIN_CREATE === "true" ||
+    process.env.NODE_ENV !== "production";
 
-// Connect to MongoDB
-mongoose
-  .connect(MONGODB_URI)
-  .then(async () => {
-    console.log("✅ Connected to MongoDB");
-
-    try {
-      // Check if admin already exists
-      const existingAdmin = await User.findOne({ email: "admin@gmail.com" });
-
-      if (existingAdmin) {
-        console.log("⚠️  Admin user already exists!");
-        console.log(`Email: ${existingAdmin.email}`);
-        console.log(`Role: ${existingAdmin.role}`);
-        process.exit(0);
-      }
-
-      // Create new admin user
-      const adminUser = new User({
-        name: "Administrator",
-        email: "admin@gmail.com",
-        password: "admin@123", // Store plain text (as per your app design)
-        role: "admin",
-        phone: "9876543210",
-        city: "Delhi",
-        isAvailable: true,
-      });
-
-      // Save admin user
-      await adminUser.save();
-
-      console.log("✅ Admin user created successfully!");
-      console.log("");
-      console.log("📝 Admin Credentials:");
-      console.log("   Email: admin@gmail.com");
-      console.log("   Password: admin@123");
-      console.log("");
-      console.log("You can now login to the admin dashboard!");
-
-      process.exit(0);
-    } catch (error) {
-      console.error("❌ Error creating admin user:", error.message);
-      process.exit(1);
-    }
-  })
-  .catch((error) => {
-    console.error("❌ MongoDB Connection Error:", error.message);
+  if (!email || !password) {
+    console.error(
+      "❌ ADMIN_EMAIL and ADMIN_PASSWORD must be set in environment.",
+    );
     process.exit(1);
-  });
+  }
+
+  if (process.env.NODE_ENV === "production" && !allowCreate) {
+    console.error(
+      "❌ Refusing to create admin in production. Set ALLOW_ADMIN_CREATE=true to override.",
+    );
+    process.exit(1);
+  }
+
+  await connectDB();
+
+  try {
+    const existingAdmin = await User.findOne({ email });
+    if (existingAdmin) {
+      console.log("⚠️ Admin user already exists for the given email.");
+      await mongoose.connection.close();
+      return;
+    }
+
+    const adminUser = await User.create({
+      name: "Administrator",
+      email,
+      password,
+      role: "admin",
+      phone: "0000000000",
+      city: "",
+      bloodGroup: "",
+      availabilityStatus: false,
+    });
+
+    console.log("✅ Admin user created successfully.");
+    console.log(`Email: ${adminUser.email}`);
+    console.log("Password: (from environment)");
+  } catch (err) {
+    console.error("❌ Error creating admin user:", err.message);
+    process.exitCode = 1;
+  } finally {
+    await mongoose.connection.close().catch(() => {});
+  }
+}
+
+createAdmin().catch(async (error) => {
+  console.error("❌ Error creating admin user:", error.message);
+  await mongoose.connection.close().catch(() => {});
+  process.exit(1);
+});

@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" fill="none">
+  <defs>
+    <linearGradient id="networkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff7f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffe4e6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="700" rx="40" fill="url(#networkBg)" />
+
+  <!-- Main network background -->
+  <rect x="100" y="100" width="800" height="500" rx="32" fill="#ffffff" opacity="0.92" stroke="#fce4ec" stroke-width="2" />
+
+  <!-- Network connection lines -->
+  <g id="connections" stroke="#f472b6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+    <path d="M 280 250 Q 380 280 500 250" />
+    <path d="M 500 250 Q 600 280 720 250" />
+    <path d="M 280 280 Q 380 320 500 300" />
+    <path d="M 500 300 Q 600 320 720 280" />
+  </g>
+
+  <!-- Donor Node (Left) -->
+  <g id="donorNode">
+    <!-- Node circle -->
+    <circle cx="280" cy="250" r="85" fill="#fce7f3" stroke="#f472b6" stroke-width="2.5" />
+    <circle cx="280" cy="250" r="75" fill="none" stroke="#fbcfe8" stroke-width="1" opacity="0.5" />
+
+    <!-- Donor icon -->
+    <circle cx="280" cy="220" r="22" fill="#fdbcb4" stroke="#f8a89c" stroke-width="1.5" />
+    <!-- Head -->
+    <circle cx="280" cy="200" r="26" fill="#92400e" />
+    <!-- Body -->
+    <ellipse cx="280" cy="260" rx="18" ry="28" fill="#ec4444" />
+    <!-- Arm drop/donation symbol -->
+    <path d="M 295 250 L 315 250 L 318 270" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Label -->
+    <text x="280" y="360" font-family="Arial" font-size="13" fill="#1f2937" font-weight="bold" text-anchor="middle">Donor</text>
+    <text x="280" y="378" font-family="Arial" font-size="10" fill="#64748b" text-anchor="middle">Blood Donor</text>
+  </g>
+
+  <!-- Hospital/Facility Node (Center) -->
+  <g id="hospitalNode">
+    <!-- Node circle -->
+    <circle cx="500" cy="280" r="95" fill="#fef3c7" stroke="#fbbf24" stroke-width="3" />
+    <circle cx="500" cy="280" r="82" fill="none" stroke="#fcd34d" stroke-width="1" opacity="0.5" />
+
+    <!-- Hospital icon -->
+    <!-- Building shape -->
+    <rect x="470" y="250" width="60" height="60" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="2" />
+    <!-- Hospital cross (main symbol) -->
+    <rect x="492" y="260" width="6" height="40" fill="#dc2626" />
+    <rect x="482" y="275" width="36" height="6" fill="#dc2626" />
+    <!-- Windows -->
+    <rect x="478" y="258" width="8" height="8" fill="#fbbf24" opacity="0.6" />
+    <rect x="495" y="258" width="8" height="8" fill="#fbbf24" opacity="0.6" />
+    <rect x="512" y="258" width="8" height="8" fill="#fbbf24" opacity="0.6" />
+
+    <!-- Label -->
+    <text x="500" y="365" font-family="Arial" font-size="13" fill="#1f2937" font-weight="bold" text-anchor="middle">Hospital</text>
+    <text x="500" y="383" font-family="Arial" font-size="10" fill="#64748b" text-anchor="middle">Blood Bank</text>
+  </g>
+
+  <!-- Patient/Recipient Node (Right) -->
+  <g id="patientNode">
+    <!-- Node circle -->
+    <circle cx="720" cy="250" r="85" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5" />
+    <circle cx="720" cy="250" r="75" fill="none" stroke="#bae6fd" stroke-width="1" opacity="0.5" />
+
+    <!-- Patient icon -->
+    <!-- Head -->
+    <circle cx="720" cy="200" r="26" fill="#92400e" />
+    <circle cx="720" cy="220" r="22" fill="#fdbcb4" stroke="#f8a89c" stroke-width="1.5" />
+    <!-- Body in medical setting -->
+    <ellipse cx="720" cy="265" rx="18" ry="28" fill="#e0f2fe" />
+    <!-- IV line -->
+    <path d="M 705 250 L 695 260 L 693 280" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Label -->
+    <text x="720" y="360" font-family="Arial" font-size="13" fill="#1f2937" font-weight="bold" text-anchor="middle">Patient</text>
+    <text x="720" y="378" font-family="Arial" font-size="10" fill="#64748b" text-anchor="middle">Blood Recipient</text>
+  </g>
+
+  <!-- Blood flow indicators (animated concept) -->
+  <g id="bloodFlow" opacity="0.7">
+    <circle cx="350" cy="265" r="5" fill="#dc2626" />
+    <circle cx="430" cy="280" r="5" fill="#dc2626" />
+    <circle cx="570" cy="290" r="5" fill="#dc2626" />
+    <circle cx="650" cy="270" r="5" fill="#dc2626" />
+  </g>
+
+  <!-- Network status badges -->
+  <g id="statusBadges">
+    <!-- Donor status -->
+    <circle cx="280" cy="430" r="38" fill="#dcfce7" stroke="#86efac" stroke-width="2" />
+    <text x="280" y="438" font-family="Arial" font-size="9" fill="#16a34a" font-weight="bold" text-anchor="middle">ACTIVE</text>
+
+    <!-- Hospital status -->
+    <circle cx="500" cy="450" r="38" fill="#dcfce7" stroke="#86efac" stroke-width="2" />
+    <text x="500" y="458" font-family="Arial" font-size="9" fill="#16a34a" font-weight="bold" text-anchor="middle">READY</text>
+
+    <!-- Patient status -->
+    <circle cx="720" cy="430" r="38" fill="#dcfce7" stroke="#86efac" stroke-width="2" />
+    <text x="720" y="438" font-family="Arial" font-size="9" fill="#16a34a" font-weight="bold" text-anchor="middle">NEED</text>
+  </g>
+
+  <!-- Connection quality indicators -->
+  <g id="qualityIndicators">
+    <!-- Donor to Hospital -->
+    <text x="360" y="245" font-family="Arial" font-size="9" fill="#10b981" font-weight="bold">Verified</text>
+    <!-- Hospital to Patient -->
+    <text x="640" y="255" font-family="Arial" font-size="9" fill="#10b981" font-weight="bold">Secure</text>
+  </g>
+
+  <!-- Key network features -->
+  <g id="networkFeatures">
+    <rect x="120" y="620" width="760" height="55" rx="10" fill="#f5f3ff" opacity="0.6" />
+    <text x="160" y="650" font-family="Arial" font-size="11" fill="#6b5b95" font-weight="bold">✓ Real-time matching</text>
+    <text x="160" y="668" font-family="Arial" font-size="11" fill="#6b5b95">✓ Verified inventory</text>
+    <text x="480" y="650" font-family="Arial" font-size="11" fill="#6b5b95" font-weight="bold">✓ Secure delivery</text>
+    <text x="480" y="668" font-family="Arial" font-size="11" fill="#6b5b95">✓ Emergency support</text>
+  </g>
+
+  <!-- Decorative accents -->
+  <circle cx="150" cy="130" r="50" fill="#fecaca" opacity="0.1" />
+  <circle cx="900" cy="600" r="70" fill="#fca5a5" opacity="0.08" />
+</svg>

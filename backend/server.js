@@ -1,168 +1,139 @@
-// =============================================
-// MAIN SERVER FILE - Entry Point
-// =============================================
-// This is the main backend server file
-// It sets up Express server and MongoDB connection
-
-// Import required packages
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+const rateLimit = require("express-rate-limit");
 require("dotenv").config();
 
-// Import route files
+const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const donorRoutes = require("./routes/donor");
 const requestRoutes = require("./routes/request");
+const adminRoutes = require("./routes/admin");
+const twoFactorRoutes = require("./routes/twoFactor");
+const passwordRoutes = require("./routes/password");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
-// Create Express app
 const app = express();
 
-// =============================================
-// MIDDLEWARE SETUP
-// =============================================
+app.disable("x-powered-by");
 
-// Enable CORS - allows frontend to communicate with backend
-app.use(cors());
+// Configure CORS: allow configured client origins, or allow all in development.
+const rawClientOrigin = process.env.CLIENT_ORIGIN;
+let corsOrigin;
+if (rawClientOrigin) {
+  // split comma-separated list
+  corsOrigin = rawClientOrigin.split(",").map((s) => s.trim());
+  // when developing locally, allow the 'null' origin (file://) for quick testing
+  if (process.env.NODE_ENV !== "production" && !corsOrigin.includes("null")) {
+    corsOrigin.push("null");
+  }
+} else {
+  corsOrigin = true; // allow all origins
+}
 
-// Parse JSON request bodies
-app.use(express.json());
-
-// Parse URL-encoded request bodies
+app.use(
+  cors({
+    origin: corsOrigin,
+    credentials: true,
+  }),
+);
+app.use(helmet());
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 200 }));
+app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
-
-// Log all incoming requests (for debugging)
+app.use(cookieParser());
+app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
+// Development-only request logger to help debug CORS / routing issues.
+if (process.env.NODE_ENV !== "production") {
+  app.use((req, res, next) => {
+    try {
+      console.log(
+        `[DEV] ${new Date().toISOString()} ${req.method} ${req.originalUrl} Origin:${req.headers.origin}`,
+      );
+    } catch (e) {
+      /* ignore logging errors */
+    }
+    next();
+  });
+}
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
+  res.setHeader("Cache-Control", "no-store");
   next();
 });
 
-// =============================================
-// MONGODB CONNECTION
-// =============================================
-
-// MongoDB connection string
-// Replace with your MongoDB URI or use environment variable
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/blood-donation";
-
-// Connect to MongoDB
-mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    console.log("✅ Connected to MongoDB successfully");
-  })
-  .catch((error) => {
-    console.error("❌ MongoDB connection error:", error);
-    process.exit(1); // Exit if database connection fails
-  });
-
-// =============================================
-// API ROUTES
-// =============================================
-
-// Test route - to check if server is running
 app.get("/", (req, res) => {
   res.json({
     success: true,
     message: "Blood Donation API is running",
-    version: "1.0.0",
+    version: "2.0.0",
   });
 });
 
-// API info route - shows available endpoints
 app.get("/api", (req, res) => {
   res.json({
     success: true,
     message: "Blood Donation API",
-    version: "1.0.0",
+    version: "2.0.0",
     endpoints: {
-      auth: {
-        register: "POST /api/register",
-        login: "POST /api/login",
-      },
-      donors: {
-        getAllDonors: "GET /api/donors",
-        getDonorById: "GET /api/donor/:id",
-      },
-      requests: {
-        createRequest: "POST /api/request-blood",
-        getAllRequests: "GET /api/requests",
-      },
+      auth: [
+        "POST /api/auth/register",
+        "POST /api/auth/login",
+        "GET /api/auth/me",
+      ],
+      donors: [
+        "GET /api/donors/search",
+        "GET /api/donors/available",
+        "GET /api/donor/requests",
+      ],
+      requests: [
+        "POST /api/requests",
+        "GET /api/requests/me",
+        "PUT /api/requests/:id/status",
+      ],
+      admin: [
+        "GET /api/admin/dashboard",
+        "GET /api/admin/users",
+        "GET /api/admin/requests",
+      ],
+      twoFactor: [
+        "POST /api/2fa/setup",
+        "POST /api/2fa/verify",
+        "POST /api/2fa/disable",
+        "POST /api/2fa/recovery-login",
+        "GET /api/2fa/recovery-codes",
+        "POST /api/2fa/regenerate-codes",
+      ],
     },
   });
 });
 
-// Authentication routes (register, login)
 app.use("/api", authRoutes);
-
-// Donor routes (get donors, get donor by id)
 app.use("/api", donorRoutes);
-
-// Blood request routes (create request, get requests)
 app.use("/api", requestRoutes);
+app.use("/api", adminRoutes);
+app.use("/api/2fa", twoFactorRoutes);
+app.use("/api", passwordRoutes);
 
-// =============================================
-// ERROR HANDLING
-// =============================================
+app.use(notFound);
+app.use(errorHandler);
 
-// Handle 404 - Route not found
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "Route not found",
-  });
-});
-
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error("Server error:", err);
-  res.status(500).json({
-    success: false,
-    message: "Internal server error",
-    error: err.message,
-  });
-});
-
-// =============================================
-// START SERVER
-// =============================================
-
-// Server port
 const PORT = process.env.PORT || 5000;
 
-// Start listening for requests
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`📡 API available at http://localhost:${PORT}`);
-});
+async function startServer() {
+  try {
+    await connectDB();
+    console.log("✅ Connected to MongoDB");
 
-// =============================================
-// EXPLANATIONS FOR VIVA:
-// =============================================
-/*
-1. What is Express.js?
-   - Express is a web framework for Node.js
-   - It helps create REST APIs easily
-   - It handles routing and middleware
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`📡 API available at http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error.message);
+    process.exit(1);
+  }
+}
 
-2. What is Mongoose?
-   - Mongoose is an ODM (Object Data Modeling) library
-   - It provides schema-based solution for MongoDB
-   - It simplifies database operations
-
-3. What is CORS?
-   - CORS = Cross-Origin Resource Sharing
-   - Allows frontend (different port) to access backend
-   - Required for frontend-backend communication
-
-4. What is Middleware?
-   - Functions that execute during request-response cycle
-   - Used for parsing JSON, logging, authentication
-   - Example: app.use(express.json())
-
-5. Why use environment variables?
-   - To store sensitive data (passwords, API keys)
-   - Different configs for development/production
-   - Keep secrets out of source code
-*/
+startServer();

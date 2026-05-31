@@ -1,45 +1,57 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
+
 const User = require("./models/User");
+const connectDB = require("./config/db");
 
-const MONGODB_URI = "mongodb://localhost:27017/blood-donation";
+async function resetAdminPassword() {
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
 
-async function resetAdmin() {
+  if (!email || !password) {
+    console.error(
+      "❌ ADMIN_EMAIL and ADMIN_PASSWORD must be set in environment to reset an admin password.",
+    );
+    process.exit(1);
+  }
+
+  // In production require explicit confirmation to run this script
+  if (
+    process.env.NODE_ENV === "production" &&
+    process.env.ADMIN_RESET_CONFIRM !== "yes"
+  ) {
+    console.error(
+      "❌ Refusing to reset admin password in production without ADMIN_RESET_CONFIRM=yes.",
+    );
+    process.exit(1);
+  }
+
+  await connectDB();
+
   try {
-    // Connect to MongoDB
-    await mongoose.connect(MONGODB_URI);
-    console.log("✅ Connected to MongoDB");
-
-    // Delete existing admin user
-    const deleted = await User.findOneAndDelete({ email: "admin@gmail.com" });
-    if (deleted) {
-      console.log("🗑️ Deleted existing admin user");
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) {
+      console.error("❌ No user found with the provided ADMIN_EMAIL.");
+      await mongoose.connection.close();
+      process.exit(1);
     }
 
-    // Create fresh admin user with plain text password
-    const newAdmin = new User({
-      name: "Administrator",
-      email: "admin@gmail.com",
-      password: "admin@123", // Plain text as per the model
-      role: "admin",
-      phone: "1234567890",
-      city: "Delhi",
-    });
+    user.password = password;
+    await user.save();
 
-    await newAdmin.save();
-    console.log("✅ New admin user created!");
-    console.log("\n📋 Admin Credentials:");
-    console.log("   Email: admin@gmail.com");
-    console.log("   Password: admin@123");
-    console.log("   Role: admin");
-    console.log("\n✨ You can now login with these credentials!");
-
-    // Close connection
-    await mongoose.connection.close();
-    console.log("\n✅ Database connection closed");
-  } catch (error) {
-    console.error("❌ Error:", error.message);
-    process.exit(1);
+    console.log("✅ Admin password reset successfully.");
+    console.log(`Email: ${email}`);
+    console.log("Password: (from environment)");
+  } catch (err) {
+    console.error("❌ Error resetting admin password:", err.message);
+    process.exitCode = 1;
+  } finally {
+    await mongoose.connection.close().catch(() => {});
   }
 }
 
-resetAdmin();
+resetAdminPassword().catch(async (err) => {
+  console.error("❌ Reset script failed:", err.message);
+  await mongoose.connection.close().catch(() => {});
+  process.exit(1);
+});

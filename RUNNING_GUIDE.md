@@ -21,13 +21,11 @@ Before starting, ensure you have:
 ### Option A: Local MongoDB (Recommended for beginners)
 
 1. **Download MongoDB Community Server:**
-
    - Go to: https://www.mongodb.com/try/download/community
    - Select your OS (Windows)
    - Download the MSI installer
 
 2. **Install MongoDB:**
-
    - Run the downloaded .msi file
    - Choose "Complete" installation
    - Keep "Install MongoDB as a Service" checked
@@ -52,33 +50,28 @@ Before starting, ensure you have:
 ### Option B: MongoDB Atlas (Cloud - Free Tier)
 
 1. **Create Account:**
-
    - Go to: https://www.mongodb.com/cloud/atlas
    - Sign up for free
 
 2. **Create Cluster:**
-
    - Choose "Free Shared" tier
    - Select a cloud provider (AWS recommended)
    - Choose region closest to you
    - Click "Create Cluster"
 
 3. **Setup Database Access:**
-
    - Go to "Database Access" in left menu
    - Click "Add New Database User"
    - Create username and password (save these!)
    - Give "Read and write to any database" permission
 
 4. **Setup Network Access:**
-
    - Go to "Network Access" in left menu
    - Click "Add IP Address"
    - Click "Allow Access from Anywhere" (for development)
    - Click "Confirm"
 
 5. **Get Connection String:**
-
    - Go to "Database" in left menu
    - Click "Connect" on your cluster
    - Choose "Connect your application"
@@ -174,7 +167,6 @@ node server.js
 ### ❌ If you see error:
 
 - **"Cannot connect to MongoDB"**:
-
   - Check if MongoDB service is running
   - Check connection string in `.env` file
   - If using Atlas, check network access settings
@@ -190,7 +182,6 @@ node server.js
 ### Method 1: Using Live Server (Recommended)
 
 1. **Install Live Server Extension in VS Code:**
-
    - Click Extensions icon (or Ctrl+Shift+X)
    - Search for "Live Server"
    - Click Install on "Live Server by Ritwick Dey"
@@ -237,10 +228,9 @@ node server.js
 1. **Click "Register" in navigation bar**
 
 2. **Fill the form:**
-
    - Name: John Doe
-   - Email: john@example.com
-   - Password: test123
+   - Email: <donor-email>
+   - Password: <donor-password>
    - Phone: 9876543210
    - City: Mumbai
    - Select: "Donor"
@@ -255,9 +245,8 @@ node server.js
 ### Test 3: Login as Donor
 
 1. **Enter credentials:**
-
-   - Email: john@example.com
-   - Password: test123
+   - Email: <donor-email>
+   - Password: <donor-password>
 
 2. **Click "Login"**
 
@@ -284,10 +273,9 @@ node server.js
 2. **Go to Register page**
 
 3. **Fill the form:**
-
    - Name: City Hospital
-   - Email: hospital@example.com
-   - Password: test123
+   - Email: <receiver-email>
+   - Password: <receiver-password>
    - Phone: 1234567890
    - City: Mumbai
    - Select: "Receiver"
@@ -298,21 +286,18 @@ node server.js
 ### Test 6: Request Blood
 
 1. **Login as Receiver:**
-
-   - Email: hospital@example.com
-   - Password: test123
+   - Email: <receiver-email>
+   - Password: <receiver-password>
 
 2. **You'll be on Request Blood page**
 
 3. **Fill the form:**
-
    - Blood Group Needed: O+
    - City: Mumbai
 
 4. **Click "Find Donors"**
 
 5. **✅ Expected:**
-
    - Shows "Found 1 matching donors" message
    - Displays John Doe's details
    - Shows phone number and email buttons
@@ -329,21 +314,26 @@ node server.js
 2. **Create Admin User (Two ways):**
 
    **Option A: Quick Login on Login Page:**
-
    - Go to login page
    - Click "Login as Admin" button
    - (This will use test credentials if admin exists)
 
    **Option B: Register Admin Manually:**
-
    - Register like normal user
    - In form, temporarily change role in code to 'admin'
    - Or use MongoDB Compass to change role field
 
 3. **Login as Admin:**
+   - Email: use the value in `ADMIN_EMAIL`
+   - Password: use the value in `ADMIN_PASSWORD`
 
-   - Email: admin@gmail.com
-   - Password: admin@123
+   If you need to create or reset the admin account, run the backend scripts with the same environment variables set:
+
+   ```bash
+   cd backend
+   npm run create-admin
+   npm run reset-admin
+   ```
 
 4. **✅ Expected - Admin Dashboard shows:**
    - Statistics cards:
@@ -361,12 +351,10 @@ node server.js
 ### Option 1: MongoDB Compass (GUI)
 
 1. **Download and Install:**
-
    - Go to: https://www.mongodb.com/try/download/compass
    - Download and install
 
 2. **Connect:**
-
    - Open Compass
    - Connection String: `mongodb://localhost:27017`
    - Click Connect
@@ -521,25 +509,21 @@ Before presenting to examiner:
 **Recommended presentation order:**
 
 1. **Start with folder structure explanation (2 min)**
-
    - Show backend folder
    - Show frontend folder
    - Explain separation of concerns
 
 2. **Start backend (1 min)**
-
    - Open terminal
    - `cd backend`
    - `node server.js`
    - Point out success messages
 
 3. **Show Home Page (1 min)**
-
    - Open frontend/index.html
    - Highlight features
 
 4. **Donor Registration & Dashboard (3 min)**
-
    - Register new donor
    - Login
    - Show dashboard
@@ -547,27 +531,23 @@ Before presenting to examiner:
    - Show localStorage in browser DevTools
 
 5. **Receiver Flow (3 min)**
-
    - Register as receiver
    - Request blood
    - Show matching donors
    - Explain matching logic
 
 6. **Admin Dashboard (2 min)**
-
    - Login as admin
    - Show statistics
    - Show all donors table
    - Show all requests table
 
 7. **Show MongoDB Data (2 min)**
-
    - Open MongoDB Compass
    - Show users collection
    - Show bloodrequests collection
 
 8. **Code Walkthrough (5 min)**
-
    - Open server.js - explain Express setup
    - Open User.js - explain schema
    - Open auth.js - explain API endpoint
