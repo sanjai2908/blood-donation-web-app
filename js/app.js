@@ -1,6 +1,7 @@
 (() => {
   const API_BASE_URL =
-    window.BloodDonationAPIBaseUrl || "http://localhost:5000/api";
+    window.BloodDonationAPIBaseUrl ||
+    "https://blood-donation-web-app-1-qe5l.onrender.com/api";
   const TOKEN_KEY = "bloodDonationToken";
   const USER_KEY = "bloodDonationUser";
 
